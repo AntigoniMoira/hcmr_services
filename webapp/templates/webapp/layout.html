@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'webapp/css/bootstrap.min.css' %}">
+    <script src="{% static 'webapp/js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'webapp/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'webapp/js/datatables.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'webapp/css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'webapp/css/datatables.min.css' %}"/>
+
+</head>
+
+<body>
+		{% block content %}
+        {% endblock %}
+    <script  type="module" src="{% static 'webapp/js/app.js' %}"></script>
+</body>
+
+</html>
