@@ -6,12 +6,7 @@ const ajax = new Ajax($("[name=csrfmiddlewaretoken]").val());
 const loginViaAPI = function () {
     const url='http://localhost:8000/o/authorize/?response_type=code&state=random_state_string&client_id=a4KPlQ7SV2qjsSMF6TOKWvmZ36QEUI25E8Dvn6sL&URI=http://localhost:9000/webapp/access_token/';
 
-    ajax.get(url, {}).then((return_data) => {
-        
-    }).catch((error) => {
-        const err = new AjaxError(error);
-        console.log(err.msg);
-    });
+    window.location.href=url;
     
 }; //function END
 
@@ -25,13 +20,19 @@ var data={
 }
 
 const logoutViaAPI = function () {
-        ajax.post('http://localhost:8000/o/revoke_token/', data).then((return_data) => {
-            console.log(return_data);
-        /*}).catch((error) => {
+        ajax.get('http://localhost:9000/webapp/logout/', {}).then((return_data) => {
+            console.log(return_data.success);
+            if (return_data.success === true) {
+                window.location.href = return_data.redirectUri;
+            } 
+            else if (return_data.success === false) {
+                window.location.href='http://localhost:9000/webapp/error'
+            }
+        }).catch((error) => {
             const err = new AjaxError(error);
-            console.log(err.msg);*/
+            console.log(err.msg);
         });
-    
+        sessionStorage.clear();   
 }; //function END
 
 const atToSessionStorage = function () {
