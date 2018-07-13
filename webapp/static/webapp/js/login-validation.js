@@ -6,6 +6,7 @@ const ajax = new Ajax($("[name=csrfmiddlewaretoken]").val());
 
 const loginValidation = function () {
 
+  console.log(HomeRoutes.home.login);
     $(".form-signin").submit(function (e) {
         // catch the form's submit event
 
@@ -15,6 +16,7 @@ const loginValidation = function () {
             password: $("#inputPassword").val()
         };
 
+        console.log(HomeRoutes.home.login);
         ajax.post(HomeRoutes.home.login, login_data).then((return_data) => {
             //edw na mpei loader
             if (return_data.success === true) {
@@ -25,6 +27,7 @@ const loginValidation = function () {
           }).catch((error) => {
            //edw na kryftei o loader
             const err = new AjaxError(error);
+            console.log(err);
             $("#login-fail-message").html("<h4> *" + err.msg + "</h4>");
           });
     });//submit event END
