@@ -6,6 +6,9 @@ import json
 from django.core.mail import send_mail, BadHeaderError
 
 
+client_id='a4KPlQ7SV2qjsSMF6TOKWvmZ36QEUI25E8Dvn6sL'
+client_secret='heRhnOayEOLyh0cWR2C8RqPhrAhOR8Cmrgx4a5eMmht7sFY6bQcRIphsT9TUkL62yMjdJXL6t9sXn0ynxLGSrH0hPr1r1dKqOahncNJHcvRV2W4uTqnMZwzY61LPj8tI'
+
 def index(request):
     if request.session._session:
         return render(request, 'webapp/index.html')
@@ -35,7 +38,7 @@ def logout(request):
     if request.session._session:
         token=request.session['refresh_token']
         token_type='refresh_token'
-        curl_res = cURL_REV_request(token, token_type, cliend_id, cliend_secret)
+        curl_res = cURL_REV_request(token, token_type, client_id, client_secret)
         print(curl_res.status_code)
         if curl_res.status_code == 200:
             request.session.flush()
@@ -59,7 +62,7 @@ def home(request):
 def access_token(request):
     code=request.GET.get('code')
     redirect_url='http://localhost:9000/webapp/access_token/'
-    curl_res = cURL_AT_request(code, redirect_url, cliend_id, cliend_secret)
+    curl_res = cURL_AT_request(code, redirect_url, client_id, client_secret)
     print(json.loads(curl_res.text))
     access_token=json.loads(curl_res.text)['access_token']
     request.session['access_token']=access_token
@@ -73,7 +76,7 @@ def update_session(request):
 
     key=request.POST.get('key', '')
     new_value=request.POST.get('value', '')
-    request.session[key] = value
+    request.session[key] = new_value
     return HttpResponse('ok')
 
 
@@ -83,3 +86,14 @@ def get_session(request):
     key=request.GET.get('key', '')
     value=request.session[key]
     return JsonResponse({'data':value}) 
+
+#class CreateNetcdf(APIView)
+def create_netcdf(request):
+    print(request)
+    #data=list(request.POST.keys())
+    #data=dict(request.POST.lists())
+    data=json.loads(request.POST.get('datas', None))
+    print('here:', list(data.keys()))
+    print('data', data['dt_from'])
+    print(data['platforms']['TS'][0])
+    return JsonResponse({'success': data})

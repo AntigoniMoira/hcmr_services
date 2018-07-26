@@ -9,6 +9,7 @@ urlpatterns = [
         url(r'^logout/', views.logout, name='logout'),
         url(r'^access_token/', views.access_token, name='access_token'),
         url(r'^error', views.error, name='error'),
+        url(r'^create_netcdf/', views.create_netcdf, name='create_netcdf'),
         #user_authentication urls
         url(r'^get_session/', views.get_session, name='get_session'),
 ]

@@ -3,5 +3,132 @@
 
 {% block content %}
 {% include "webapp/header.html"%}
-<iframe src="http://poseidonsystem.gr/db/" width="100%" height="80%"></iframe>
+<div class="container">
+    <div class="row">
+    <section>
+        <div class="wizard">
+            <center><h1>Poseidon DataBase Download</h1></center>
+            <div class="wizard-inner">
+                <div class="connecting-line"></div>
+                <ul class="nav nav-tabs" role="tablist">
+
+                    <li role="presentation" class="active">
+                        <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li role="presentation" class="disabled">
+                        <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-pushpin"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="disabled">
+                        <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-list-alt"></i>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li role="presentation" class="disabled">
+                        <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <form role="form">
+                <div class="tab-content">
+                    <div class="tab-pane active" role="tabpanel" id="step1">
+                        <h3>TimeFrame</h3>
+                        <p>Selects Dates</p>
+                        <div class="row">
+                            <div class='col-md-5'>
+                                <label>From:</label>
+                                <div class="form-group">
+                                        <div class='input-group date' id='date-from'>
+                                            <input type='text' class="form-control" id='date-from-input' />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-md-5'>
+                                <label>To:</label>
+                                <div class="form-group">
+                                        <div class='input-group date' id='date-to'>
+                                            <input type='text' class="form-control" id='date-to-input'/>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-primary next-step" value="date">Next</button></li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="step2">
+                        <h3>Platforms</h3>
+                        <p>Select Platform(s):</p>
+                            <div class="form-group">
+                                <select id="platforms" name="platforms[]" multiple class="form-control" >
+                                    <!--<option class="plat_option" value="Codeigniter" hidden>Codeigniter</option>
+                                    <option class="plat_option" value="Antigoni" hidden>Antigoni</option>
+                                    <option class="plat_option" value="Test" hidden>Test</option>-->
+                                </select>
+                            </div>
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-default prev-step" value="date">Previous</button></li>
+                            <li><button type="button" class="btn btn-primary next-step" value="params">Next</button></li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="step3">
+                        <h3>Parameters</h3>
+                        <p>Select Parameter(s):</p>
+                        <div class="form-group">
+                            <div class="container" id='param-selects'>
+
+                            </div>
+                        </div>
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-default prev-step" value="params">Previous</button></li>
+                            <li><button type="button" class="btn btn-primary next-step" value="complete">Next</button></li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="complete">
+                        <h3>Checkout</h3>
+                        <p>You have successfully completed every step.</p>
+                        <div class="row">
+                                <div class='col-md-5'>
+                                    <div class="form-group">
+                                        <label>Email:</label>
+                                        <input type="text" class="form-control" id="email">
+                                    </div>
+                                </div> 
+                        </div>  
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-default prev-step" value="complete">Previous</button></li>
+                            <li><button type="button" class="btn btn-primary btn-info-full next-step" value="submit">Submit</button></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </div>
+    </section>
+    </div>
+</div>
 {% endblock %}
