@@ -4,6 +4,8 @@ from .utils import cURL_AT_request, cURL_REV_request
 from django.urls import reverse
 import json
 from django.core.mail import send_mail, BadHeaderError
+import urllib
+import time
 
 
 client_id='a4KPlQ7SV2qjsSMF6TOKWvmZ36QEUI25E8Dvn6sL'
@@ -27,12 +29,108 @@ def poseidon_db(request):
     else:
         return render(request, 'webapp/home.html')
 
-def online_data(request):
+def online_data(request, language):
     '''if request.session._session:
         return render(request, 'webapp/online_data.html')
     else:
         return render(request, 'webapp/home.html')'''
-    return render(request, 'webapp/online_data.html')
+    url = 'http://localhost:8000/api/online_data_from_mv/'
+    serialized_data = urllib.request.urlopen(url).read()
+
+    finaldata ={
+        'TS_MO_ATHOS':{
+            15: 'N/A',
+            19: 'N/A',
+            33: 'N/A',
+            22: 'N/A',
+            32: 'N/A',
+            112: 'N/A',
+            14: 'N/A',
+            122: 'N/A',
+            27: 'N/A',
+            24: 'N/A',
+            23: 'N/A'
+        },
+        'TS_MO_MYKON':{
+            15: 'N/A',
+            19: 'N/A',
+            33: 'N/A',
+            22: 'N/A',
+            32: 'N/A',
+            112: 'N/A',
+            14: 'N/A',
+            122: 'N/A',
+            27: 'N/A',
+            24: 'N/A',
+            23: 'N/A'
+        },
+        'TS_MO_SARON':{
+             15: 'N/A',
+            19: 'N/A',
+            33: 'N/A',
+            22: 'N/A',
+            32: 'N/A',
+            112: 'N/A',
+            14: 'N/A',
+            122: 'N/A',
+            27: 'N/A',
+            24: 'N/A',
+            23: 'N/A'
+        },
+        'TS_MO_HERAKLION':{
+             15: 'N/A',
+            19: 'N/A',
+            33: 'N/A',
+            22: 'N/A',
+            32: 'N/A',
+            112: 'N/A',
+            14: 'N/A',
+            122: 'N/A',
+            27: 'N/A',
+            24: 'N/A',
+            23: 'N/A'
+        },
+        'TS_MO_68422':{
+             15: 'N/A',
+            19: 'N/A',
+            33: 'N/A',
+            22: 'N/A',
+            32: 'N/A',
+            112: 'N/A',
+            14: 'N/A',
+            122: 'N/A',
+            27: 'N/A',
+            24: 'N/A',
+            23: 'N/A'
+        },
+        'TS_MO_61277':{
+             15: 'N/A',
+            19: 'N/A',
+            33: 'N/A',
+            22: 'N/A',
+            32: 'N/A',
+            112: 'N/A',
+            14: 'N/A',
+            122: 'N/A',
+            27: 'N/A',
+            24: 'N/A',
+            23: 'N/A'
+        }
+    }
+
+    data = json.loads(serialized_data)
+    results = data['results']
+    #date = dateutil.parser.parse(results[0]['dt'])
+    date = time.strptime(results[0]['dt'], '%Y-%m-%dT%H:%M:%SZ')
+    finaldate =time.strftime('%d.%m.%Y %H:%M', date)
+    for row in results:
+        finaldata[row['platform']][row['param']]=row['val']
+    path =request.path.split('/')
+    print(path[2])
+    if path[2]=='online_data_table':
+        return render(request, 'webapp/online_data_table.html', {'data' : finaldata, 'date': finaldate, 'lang':language})
+    if path[2]=='online_data_poseidon':
+        return render(request, 'webapp/online_data_poseidon.html', {'data' : finaldata, 'date': finaldate, 'lang':language})
 
 def logout(request):
     if request.session._session:

@@ -1,0 +1,343 @@
+{% extends "webapp/layout.html" %}
+
+
+{% block content %}
+{% include "webapp/header.html"%}
+
+<div class="container online-data-container">
+    {% if lang == 'gr' %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="online-data-table-header">Δεδομένα από το δίκτυο σταθμών του ΠΟΣΕΙΔΩΝΑ στις {{date}} UTC<br>(Τοπική ώρα: UTC+3)</th>
+            </tr>
+        </thead>
+    </table>
+
+    <table class="table table-bordered online-data-table">
+        <caption>Ατμοσφαιρικά Δεδομένα</caption>
+        <thead>
+        <tr>
+            <th scope="col" class="col-*-2 online-data-table-header">&nbsp</th>
+            <th scope="col" class="col-*-2 online-data-table-header">&nbsp</th>
+            <th scope="col" class="col-*-2 online-data-table-header">&nbsp</th>
+            <th scope="col" class="col-*-2 online-data-table-header">&nbsp</th>
+            <th scope="col" colspan="2" class="col-*-1 online-data-table-header">Ταχύτητα ανέμου<br>(μέτρα/δευ.)</th>
+        </tr>
+        <tr>
+            <th scope="col" class="col-*-2 online-data-table-header">&nbsp</th>
+            <th scope="col" class="col-*-2 online-data-table-header">Ατμ. Πίεση<br>(mbars)</th>
+            <th scope="col" class="col-*-2 online-data-table-header">Θερμοκρασία Αέρα<br>(<sup>o</sup>C)</th>
+            <th scope="col" class="col-*-2 online-data-table-header">Διεύθυνση ανέμου<br>(μοίρες)</th>
+            <th scope="col" class="col-*-1 online-data-table-header">Ριπή</th>
+            <th scope="col" class="col-*-1 online-data-table-header">Μέση ταχύτητα</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">Άθως</th>
+            <td>{{data.TS_MO_ATHOS.15}}</td>
+            <td>{{data.TS_MO_ATHOS.19}}</td>
+            <td>{{data.TS_MO_ATHOS.32}}</td>
+            <td>{{data.TS_MO_ATHOS.22}}</td>
+            <td>{{data.TS_MO_ATHOS.33}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Μύκονος</th>
+            <td>{{data.TS_MO_MYKON.15}}</td>
+            <td>{{data.TS_MO_MYKON.19}}</td>
+            <td>{{data.TS_MO_MYKON.32}}</td>
+            <td>{{data.TS_MO_MYKON.22}}</td>
+            <td>{{data.TS_MO_MYKON.33}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Σαρωνικός</th>
+            <td>{{data.TS_MO_SARON.15}}</td>
+            <td>{{data.TS_MO_SARON.19}}</td>
+            <td>{{data.TS_MO_SARON.32}}</td>
+            <td>{{data.TS_MO_SARON.22}}</td>
+            <td>{{data.TS_MO_SARON.33}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Ηράκλειο</th>
+            <td>{{data.TS_MO_HERAKLION.15}}</td>
+            <td>{{data.TS_MO_HERAKLION.19}}</td>
+            <td>{{data.TS_MO_HERAKLION.32}}</td>
+            <td>{{data.TS_MO_HERAKLION.22}}</td>
+            <td>{{data.TS_MO_HERAKLION.33}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Ε1Μ3Α</th>
+            <td>{{data.TS_MO_61277.15}}</td>
+            <td>{{data.TS_MO_61277.19}}</td>
+            <td>{{data.TS_MO_61277.32}}</td>
+            <td>{{data.TS_MO_61277.22}}</td>
+            <td>{{data.TS_MO_61277.33}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Πύλος</th>
+            <td>{{data.TS_MO_68422.15}}</td>
+            <td>{{data.TS_MO_68422.19}}</td>
+            <td>{{data.TS_MO_68422.32}}</td>
+            <td>{{data.TS_MO_68422.22}}</td>
+            <td>{{data.TS_MO_68422.33}}</td>
+        </tr>
+        </tbody>
+        <thead>
+            <tr>
+                <th  colspan="6" class=" online-data-table-header">Η ένδειξη Ν/Α δηλώνει την απουσία μέτρησης κάποιας παραμέτρου.</th>
+            </tr>
+        </thead>
+    </table>
+
+    <table class="table table-bordered online-data-table">
+        <caption>Θαλάσσια Δεδομένα</caption>
+        <thead>
+        <tr>
+            <th scope="col" class="online-data-table-header">&nbsp</th>
+            <th scope="col" colspan="2" class="online-data-table-header">Δεδομένα<br>Κυκλοφορίας</th>
+            <th scope="col" colspan="3"class="online-data-table-header">Κυματικά δεδομένα</th>
+            <th scope="col" class="online-data-table-header">&nbsp</th>
+        </tr>
+        <tr>
+            <th scope="col" class="online-data-table-header">&nbsp</th>
+            <th scope="col" class="online-data-table-header">Διεύθυνση<br>(μοίρες)</th>
+            <th scope="col" class="online-data-table-header">Ταχύτητα<br>(μετ./δευ.)</th>
+            <th scope="col" class="online-data-table-header">Σημαντικό ύψος<br>(μέτρα)</th>
+            <th scope="col" class="online-data-table-header">Μέγιστο ύψος<br>(μέτρα)</th>
+            <th scope="col" class="online-data-table-header">Κύρια διεύθυνση<br>(μοίρες)</th>
+            <th scope="col" class="col-md-2 online-data-table-header">Θερμοκρασία επιφάνειας<br>(<sup>o</sup>C)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">Άθως</th>
+            <td>{{data.TS_MO_ATHOS.23}}</td>
+            <td>{{data.TS_MO_ATHOS.24}}</td>
+            <td>{{data.TS_MO_ATHOS.112}}</td>
+            <td>{{data.TS_MO_ATHOS.14}}</td>
+            <td>{{data.TS_MO_ATHOS.122}}</td>
+            <td>{{data.TS_MO_ATHOS.27}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Μύκονος</th>
+            <td>{{data.TS_MO_MYKON.23}}</td>
+            <td>{{data.TS_MO_MYKON.24}}</td>
+            <td>{{data.TS_MO_MYKON.112}}</td>
+            <td>{{data.TS_MO_MYKON.14}}</td>
+            <td>{{data.TS_MO_MYKON.122}}</td>
+            <td>{{data.TS_MO_MYKON.27}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Σαρωνικός</th>
+            <td>{{data.TS_MO_SARON.23}}</td>
+            <td>{{data.TS_MO_SARON.24}}</td>
+            <td>{{data.TS_MO_SARON.112}}</td>
+            <td>{{data.TS_MO_SARON.14}}</td>
+            <td>{{data.TS_MO_SARON.122}}</td>
+            <td>{{data.TS_MO_SARON.27}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Ηράκλειο</th>
+            <td>{{data.TS_MO_HERAKLION.23}}</td>
+            <td>{{data.TS_MO_HERAKLION.24}}</td>
+            <td>{{data.TS_MO_HERAKLION.112}}</td>
+            <td>{{data.TS_MO_HERAKLION.14}}</td>
+            <td>{{data.TS_MO_HERAKLION.122}}</td>
+            <td>{{data.TS_MO_HERAKLION.27}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Ε1Μ3Α</th>
+            <td>{{data.TS_MO_61277.23}}</td>
+            <td>{{data.TS_MO_61277.24}}</td>
+            <td>{{data.TS_MO_61277.112}}</td>
+            <td>{{data.TS_MO_61277.14}}</td>
+            <td>{{data.TS_MO_61277.122}}</td>
+            <td>{{data.TS_MO_61277.27}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Πύλος</th>
+            <td>{{data.TS_MO_68422.23}}</td>
+            <td>{{data.TS_MO_68422.24}}</td>
+            <td>{{data.TS_MO_68422.112}}</td>
+            <td>{{data.TS_MO_68422.14}}</td>
+            <td>{{data.TS_MO_68422.122}}</td>
+            <td>{{data.TS_MO_68422.27}}</td>
+        </tr>
+        </tbody>
+        <thead>
+            <tr>
+                <th  colspan="7" class=" online-data-table-header">Η ένδειξη Ν/Α δηλώνει την απουσία μέτρησης κάποιας παραμέτρου.</th>
+            </tr>
+        </thead>
+    </table>
+    {%else%}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="online-data-table-header">POSEIDON buoy network data on {{date}} UTC<br> (Local Time: UTC+3)</th>
+            </tr>
+        </thead>
+    </table>
+
+    <table class="table table-bordered online-data-table">
+        <caption>Atmospheric Data</caption>
+        <thead>
+        <tr>
+            <th scope="col" class="col-*-2 online-data-table-header">&nbsp</th>
+            <th scope="col" class="col-*-2 online-data-table-header">&nbsp</th>
+            <th scope="col" class="col-*-2 online-data-table-header">&nbsp</th>
+            <th scope="col" class="col-*-2 online-data-table-header">&nbsp</th>
+            <th scope="col" colspan="2" class="col-*-1 online-data-table-header">Wind Speed<br>(m/sec)</th>
+        </tr>
+        <tr>
+            <th scope="col" class="col-*-2 online-data-table-header">&nbsp</th>
+            <th scope="col" class="col-*-2 online-data-table-header">Air Pressure<br>(mbars)</th>
+            <th scope="col" class="col-*-2 online-data-table-header">Air Temperature <br>(<sup>o</sup>C)</th>
+            <th scope="col" class="col-*-2 online-data-table-header">Wind direction <br>(degrees)</th>
+            <th scope="col" class="col-*-1 online-data-table-header">Gust</th>
+            <th scope="col" class="col-*-1 online-data-table-header">Mean speed</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">Athos</th>
+            <td>{{data.TS_MO_ATHOS.15}}</td>
+            <td>{{data.TS_MO_ATHOS.19}}</td>
+            <td>{{data.TS_MO_ATHOS.32}}</td>
+            <td>{{data.TS_MO_ATHOS.22}}</td>
+            <td>{{data.TS_MO_ATHOS.33}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Mykonos</th>
+            <td>{{data.TS_MO_MYKON.15}}</td>
+            <td>{{data.TS_MO_MYKON.19}}</td>
+            <td>{{data.TS_MO_MYKON.32}}</td>
+            <td>{{data.TS_MO_MYKON.22}}</td>
+            <td>{{data.TS_MO_MYKON.33}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Saronikos</th>
+            <td>{{data.TS_MO_SARON.15}}</td>
+            <td>{{data.TS_MO_SARON.19}}</td>
+            <td>{{data.TS_MO_SARON.32}}</td>
+            <td>{{data.TS_MO_SARON.22}}</td>
+            <td>{{data.TS_MO_SARON.33}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Heraklion</th>
+            <td>{{data.TS_MO_HERAKLION.15}}</td>
+            <td>{{data.TS_MO_HERAKLION.19}}</td>
+            <td>{{data.TS_MO_HERAKLION.32}}</td>
+            <td>{{data.TS_MO_HERAKLION.22}}</td>
+            <td>{{data.TS_MO_HERAKLION.33}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Ε1Μ3Α</th>
+            <td>{{data.TS_MO_61277.15}}</td>
+            <td>{{data.TS_MO_61277.19}}</td>
+            <td>{{data.TS_MO_61277.32}}</td>
+            <td>{{data.TS_MO_61277.22}}</td>
+            <td>{{data.TS_MO_61277.33}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Pylos</th>
+            <td>{{data.TS_MO_68422.15}}</td>
+            <td>{{data.TS_MO_68422.19}}</td>
+            <td>{{data.TS_MO_68422.32}}</td>
+            <td>{{data.TS_MO_68422.22}}</td>
+            <td>{{data.TS_MO_68422.33}}</td>
+        </tr>
+        </tbody>
+        <thead>
+            <tr>
+                <th  colspan="6" class=" online-data-table-header">N/A denotes a non-available value</th>
+            </tr>
+        </thead>
+    </table>
+
+    <table class="table table-bordered online-data-table">
+        <caption>Θαλάσσια Δεδομένα</caption>
+        <thead>
+        <tr>
+            <th scope="col" class="online-data-table-header">&nbsp</th>
+            <th scope="col" colspan="2" class="online-data-table-header">Current Data</th>
+            <th scope="col" colspan="3"class="online-data-table-header">Waves data</th>
+            <th scope="col" class="online-data-table-header">&nbsp</th>
+        </tr>
+        <tr>
+            <th scope="col" class="online-data-table-header">&nbsp</th>
+            <th scope="col" class="online-data-table-header">Direction <br>(degrees)</th>
+            <th scope="col" class="online-data-table-header">Speed <br>(m/sec)</th>
+            <th scope="col" class="online-data-table-header">Significant height <br>(meters)</th>
+            <th scope="col" class="online-data-table-header">Maximum height <br>(meters)</th>
+            <th scope="col" class="online-data-table-header">Main direction <br>(degrees)</th>
+            <th scope="col" class="col-md-2 online-data-table-header">Surface Temperature <br>(<sup>o</sup>C)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">Athos</th>
+            <td>{{data.TS_MO_ATHOS.23}}</td>
+            <td>{{data.TS_MO_ATHOS.24}}</td>
+            <td>{{data.TS_MO_ATHOS.112}}</td>
+            <td>{{data.TS_MO_ATHOS.14}}</td>
+            <td>{{data.TS_MO_ATHOS.122}}</td>
+            <td>{{data.TS_MO_ATHOS.27}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Mykonos</th>
+            <td>{{data.TS_MO_MYKON.23}}</td>
+            <td>{{data.TS_MO_MYKON.24}}</td>
+            <td>{{data.TS_MO_MYKON.112}}</td>
+            <td>{{data.TS_MO_MYKON.14}}</td>
+            <td>{{data.TS_MO_MYKON.122}}</td>
+            <td>{{data.TS_MO_MYKON.27}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Saronikos</th>
+            <td>{{data.TS_MO_SARON.23}}</td>
+            <td>{{data.TS_MO_SARON.24}}</td>
+            <td>{{data.TS_MO_SARON.112}}</td>
+            <td>{{data.TS_MO_SARON.14}}</td>
+            <td>{{data.TS_MO_SARON.122}}</td>
+            <td>{{data.TS_MO_SARON.27}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Heraklion</th>
+            <td>{{data.TS_MO_HERAKLION.23}}</td>
+            <td>{{data.TS_MO_HERAKLION.24}}</td>
+            <td>{{data.TS_MO_HERAKLION.112}}</td>
+            <td>{{data.TS_MO_HERAKLION.14}}</td>
+            <td>{{data.TS_MO_HERAKLION.122}}</td>
+            <td>{{data.TS_MO_HERAKLION.27}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Ε1Μ3Α</th>
+            <td>{{data.TS_MO_61277.23}}</td>
+            <td>{{data.TS_MO_61277.24}}</td>
+            <td>{{data.TS_MO_61277.112}}</td>
+            <td>{{data.TS_MO_61277.14}}</td>
+            <td>{{data.TS_MO_61277.122}}</td>
+            <td>{{data.TS_MO_61277.27}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Pylos</th>
+            <td>{{data.TS_MO_68422.23}}</td>
+            <td>{{data.TS_MO_68422.24}}</td>
+            <td>{{data.TS_MO_68422.112}}</td>
+            <td>{{data.TS_MO_68422.14}}</td>
+            <td>{{data.TS_MO_68422.122}}</td>
+            <td>{{data.TS_MO_68422.27}}</td>
+        </tr>
+        </tbody>
+        <thead>
+            <tr>
+                <th  colspan="7" class=" online-data-table-header">N/A denotes a non-available value</th>
+            </tr>
+        </thead>
+    </table>
+
+    {%endif%}
+</div>
+{% endblock %}
