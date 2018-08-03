@@ -4,6 +4,7 @@ import {logoutViaAPI} from "./oauth-via-api.js";
 import {atToSessionStorage} from "./oauth-via-api.js";
 import {apiRequest} from "./api-requests.js";
 import {mapsFunction} from "./map.js";
+import {poseidonDB} from "./poseidon_db.js"
 
 
 $( "#login-btn" ).click(loginViaAPI);
@@ -14,5 +15,6 @@ $(document).ready(function() {
     atToSessionStorage();
     loginValidation();
     mapsFunction();
+    poseidonDB();
     
 });

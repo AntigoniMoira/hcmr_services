@@ -18,3 +18,4 @@ def cURL_REV_request(token, token_type, cliend_id, cliend_secret):
 
     response = requests.post('http://localhost:8000/o/revoke_token/', data=data,  auth=(cliend_id, cliend_secret))
     return response
+    
