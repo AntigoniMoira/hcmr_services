@@ -62,6 +62,19 @@ caption {
 /****** poseidon_db.html START ******/
 
 /*stepper START*/
+
+#date-from-error-message{
+  color: red;
+}
+
+#date-to-error-message{
+  color: red;
+}
+
+#platforms-error-message{
+  color: red;
+}
+
 .wizard {
   margin: 20px auto;
   background: #fff;

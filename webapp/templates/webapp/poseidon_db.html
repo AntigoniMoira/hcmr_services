@@ -55,11 +55,12 @@
                                 <label>From:</label>
                                 <div class="form-group">
                                         <div class='input-group date' id='date-from'>
-                                            <input type='text' class="form-control" id='date-from-input' />
+                                            <input type='text' class="form-control" id='date-from-input'/>
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
                                         </div>
+                                        <div id="date-from-error-message"></div>
                                 </div>
                             </div>
                         </div>
@@ -73,6 +74,7 @@
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
                                         </div>
+                                        <div id="date-to-error-message"></div>
                                 </div>
                             </div>
                         </div>
@@ -87,6 +89,7 @@
                                 <select id="platforms" name="platforms[]" multiple class="form-control" >
                                 </select>
                             </div>
+                            <div id="platforms-error-message"></div>
                         <ul class="list-inline pull-right">
                             <li><button type="button" class="btn btn-default prev-step" value="date">Previous</button></li>
                             <li><button type="button" class="btn btn-primary next-step" value="params">Next</button></li>

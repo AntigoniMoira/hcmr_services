@@ -36,9 +36,11 @@ const poseidonDB = function () {
     $(".next-step").click(function (e) {
         var step=$(this).val();
         var $active = $('.wizard .nav-tabs li.active');
-        content(step);
-        $active.next().removeClass('disabled');
-        nextTab($active);
+        var required=content(step);
+        if (required) {
+            $active.next().removeClass('disabled');
+            nextTab($active);
+        }
     });
 
     $(".prev-step").click(function (e) {
@@ -70,64 +72,88 @@ function content(step) {
    
     //step1 -> step2 / TimeFrame -> Platform(s)
     if (step==='date') {
-        var date_data={
-            start_date:date_from[2]+'-'+date_from[1],
-            end_date: date_to[2]+'-'+date_to[1]
-        };
-
-        ajax.get(HomeRoutes.home.platforms_between, date_data).then((return_data) => {
-           for (var x = 0; x <return_data['data'].length; x++) {
-               var plat_name=return_data['data'][x].platform;
-               $('#platforms').append("<option value="+plat_name+">"+plat_name+"</option>"); 
-           }
-           $("#platforms").multiselect('rebuild');
-        }).catch((error) => {
-           //edw na kryftei o loader
-            const err = new AjaxError(error);
-            console.log(err);
-        });
-    }
-    //step2 -> step3 / Platforms -> Parameter(s)
-    if (step==='params') {
-        $( "#platforms option:selected" ).each(function() {
-            var str = $( this ).text();
-            var params_data={
-                platform: str,
+        if ($('#date-from-input').val()===''){
+            $("#date-to-error-message").html('');
+            $("#date-from-error-message").html('*required');
+            return false;
+        }
+        else if ($('#date-to-input').val()===''){
+            $("#date-from-error-message").html('');
+            $("#date-to-error-message").html('*required');
+            return false;
+        }
+        else{
+            $("#date-from-error-message").html('');
+            $("#date-to-error-message").html('');
+            var date_data={
                 start_date:date_from[2]+'-'+date_from[1],
                 end_date: date_to[2]+'-'+date_to[1]
             };
 
-            $('#param-selects').append('<div class=row><select id='+str+' name=parameters[] multiple class=form-control collapse></select></div>');
-            $('#'+str).multiselect({
-                nonSelectedText: str,
-                enableFiltering: true,
-                enableCaseInsensitiveFiltering: true,
-                includeSelectAllOption: true,
-                maxHeight: 200,
-                buttonWidth:'100%'
-               });
-           
-            ajax.get(HomeRoutes.home.measurements_between, params_data).then((return_data) => {
-                var param_list=return_data['data'][0].param.split('#');
-                if (str.startsWith("T")) {
-                    for (var x = 0; x <param_list.length; x++) {
-                        var param=param_list[x].split('^');
-                        var param_pressure=param[1]+'^'+param[0].split('@')[1];
-                        $('#'+str).append('<option value='+param_pressure+'>'+param[0].replace(/@/g,"")+'</option>'); 
-                    }
-                }
-                else {
-                    for (var x = 0; x <param_list.length; x++) {
-                        var param=param_list[x].split('^');
-                        $('#'+str).append('<option value='+param[1]+'>'+param[0].replace(/@/g,"")+'</option>'); 
-                    }
-                }
-                $('#'+str).multiselect('rebuild');
+            ajax.get(HomeRoutes.home.platforms_between, date_data).then((return_data) => {
+            for (var x = 0; x <return_data['data'].length; x++) {
+                var plat_name=return_data['data'][x].platform;
+                $('#platforms').append("<option value="+plat_name+">"+plat_name+"</option>"); 
+            }
+            $("#platforms").multiselect('rebuild');
             }).catch((error) => {
+            //edw na kryftei o loader
                 const err = new AjaxError(error);
                 console.log(err);
             });
-        });
+            return true;
+        }
+    }
+    //step2 -> step3 / Platforms -> Parameter(s)
+    if (step==='params') {
+        if($( "#platforms option:selected" ).length!==0) {
+            $("#platforms-error-message").html('');
+            $( "#platforms option:selected" ).each(function() {
+                var str = $( this ).text();
+                var params_data={
+                    platform: str,
+                    start_date:date_from[2]+'-'+date_from[1],
+                    end_date: date_to[2]+'-'+date_to[1]
+                };
+
+                $('#param-selects').append('<div class=row><select id='+str+' name=parameters[] multiple class=form-control collapse></select></div>');
+                $('#'+str).multiselect({
+                    nonSelectedText: str,
+                    enableFiltering: true,
+                    enableCaseInsensitiveFiltering: true,
+                    includeSelectAllOption: true,
+                    maxHeight: 200,
+                    buttonWidth:'100%'
+                });
+            
+                ajax.get(HomeRoutes.home.measurements_between, params_data).then((return_data) => {
+                    var param_list=return_data['data'][0].param.split('#');
+                    if (str.startsWith("T")) {
+                        for (var x = 0; x <param_list.length; x++) {
+                            var param=param_list[x].split('^');
+                            var param_pressure=param[1]+'^'+param[0].split('@')[1];
+                            $('#'+str).append('<option value='+param_pressure+'>'+param[0].replace(/@/g,"")+'</option>'); 
+                        }
+                    }
+                    else {
+                        for (var x = 0; x <param_list.length; x++) {
+                            var param=param_list[x].split('^');
+                            $('#'+str).append('<option value='+param[1]+'>'+param[0].replace(/@/g,"")+'</option>'); 
+                        }
+                    }
+                    $('#'+str).multiselect('rebuild');
+                }).catch((error) => {
+                    const err = new AjaxError(error);
+                    console.log(err);
+                });
+            });
+            return true;
+        }
+        else{
+            $("#platforms-error-message").html('*no platform selected');
+            return false;
+        }
+
     }
     //Final step. Data collection and send to backend
     if (step==='complete'){
