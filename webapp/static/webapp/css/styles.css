@@ -2,7 +2,9 @@ html,
 body {
   height: 100%;
   background-color: #ffffff;
+  /*font-size: 11px !important;*/
 }
+
 
 /****** index.html START ******/
 
@@ -33,6 +35,12 @@ body {
 .online-data-table tr{
   text-align: center;
 }
+
+.online-data-table th, .online-data-table td{
+  line-height: 1.2 !important;
+  padding: 5px !important;
+}
+
 .online-data-table-header {
   background-color: #4284B0;;
   color: #fff;
@@ -48,6 +56,8 @@ caption {
 }
 
 .container.online-data-container {
+  font-size: 11px;
+  line-height: 1.0;
   /*background-color: #eee;
   padding-top: 15px;*/
   /*height: 100%;

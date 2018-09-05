@@ -34,7 +34,7 @@ def online_data(request, language):
         return render(request, 'webapp/online_data.html')
     else:
         return render(request, 'webapp/home.html')'''
-    url = 'http://localhost:8000/api/online_data_from_mv/'
+    url = 'http://poseidonsystem.gr:8000/api/online_data_from_mv/'
     serialized_data = urllib.request.urlopen(url).read()
 
     finaldata ={
@@ -117,8 +117,8 @@ def online_data(request, language):
             23: 'N/A'
         }
     }
-
-    data = json.loads(serialized_data)
+    
+    data = json.loads(serialized_data.decode('utf-8'))
     results = data['results']
     #date = dateutil.parser.parse(results[0]['dt'])
     date = time.strptime(results[0]['dt'], '%Y-%m-%dT%H:%M:%SZ')
