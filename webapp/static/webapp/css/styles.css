@@ -4,6 +4,24 @@ body {
   background-color: #ffffff;
 }
 
+/****** home.html START ******/
+.home-body {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+
+.home-container {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  text-align: center;
+}
+/****** home.html END ******/
 /****** index.html START ******/
 
 .introduction-header {

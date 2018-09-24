@@ -140,10 +140,12 @@ def logout(request):
         print(curl_res.status_code)
         if curl_res.status_code == 200:
             request.session.flush()
-            return JsonResponse({
+            '''return JsonResponse({
                     'success': True,
                     'redirectUri': reverse('home')
-                })
+                })'''
+            response = HttpResponseRedirect('/webapp/home/')
+            return response
         else:
             return JsonResponse({
                 'success':False
@@ -165,7 +167,7 @@ def access_token(request):
     access_token=json.loads(curl_res.text)['access_token']
     request.session['access_token']=access_token
     request.session['refresh_token']=json.loads(curl_res.text)['refresh_token']
-    return HttpResponseRedirect('../index')
+    return HttpResponseRedirect('../poseidon_db/')
 
 #Gia na mporei h js na pairnei ta dedomena pou einai apothikeymena sto session
 def update_session(request):
