@@ -117,7 +117,7 @@ USE_TZ = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-SESSION_COOKIE_AGE = 36000
+#SESSION_COOKIE_AGE = 36000
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

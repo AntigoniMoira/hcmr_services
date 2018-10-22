@@ -25,28 +25,6 @@ class Ajax {
 			});
 		});
 	}
-	
-	getAT(uri, session, data) {
-		return new Promise((resolve, reject) => {
-			$.ajax({
-				url: uri,
-				type: 'GET',
-				dataType: 'json',
-				data: data,
-				contentType: 'application/json',
-				beforeSend: (xhr) => {
-					xhr.setRequestHeader('Authorization', 'Bearer '+ session);
-				}
-			}).done((responseData) => {
-				resolve(responseData);
-			}).fail((error) => {
-				reject({
-					status: error.status,
-					statusText: error.statusText
-				});
-			});
-		});
-	}
 
 	post(uri, data) {
 		return new Promise((resolve, reject) => {
