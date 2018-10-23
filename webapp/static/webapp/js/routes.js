@@ -1,10 +1,13 @@
 export default {
     home:{
         root:'',
-        login:'/api/login/',
-        map:'http://10.6.1.16:8000/api/platforms/?inst=7&status=true',
-        latest_ts: 'http://10.6.1.16:8000/api/latest_ts/',
-        latest_pr: 'http://10.6.1.16:8000/api/latest_pr/',
+        login:'http://localhost:9000/api/login/',
+        map:'http://localhost:9000/api/platforms/?inst=7&status=true',
+        latest_ts: 'http://localhost:9000/api/latest_ts/',
+        latest_pr: 'http:/ /localhost:9000/api/latest_pr/',
+        platforms_between: 'http://localhost:8000/api/poseidon_platforms_with_measurements_between/',
+        measurements_between: 'http://localhost:8000/api/poseidon_platform_parameters_with_measurements_between/',
+        create_netcdf: 'http://localhost:9000/webapp/create_netcdf/',
     }
 
 }

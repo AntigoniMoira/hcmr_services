@@ -16,6 +16,10 @@ const mapsFunction = function () {
 
         map = new google.maps.Map($('#map_canvas')[0], myOptions);
 
+        var table=$('#ts_table').DataTable({
+            paging: false
+        });
+        
         //var infowindow = new google.maps.InfoWindow();
 
 		function addMarker(name, coordinate, map) {
@@ -35,9 +39,6 @@ const mapsFunction = function () {
                     $('#mapModalLabel').html(title);
                     const param_list=Object.keys(return_data.params);
                     
-                    var table=$('#ts_table').DataTable({
-                        paging: false
-                    });
                     
                     var i=0;
                     for (var p in return_data.params) {
@@ -48,12 +49,12 @@ const mapsFunction = function () {
                             )
                         }
                     }
-                    table.draw();
-                    table.order.fixed( {
-                        pre: [[ 0, 'asc' ], [ 1, 'asc' ]]
-                    } );
                     
-                    //table.order();
+                    table.order.fixed( {
+                        pre: [[ 0, 'asc' ]]
+                    } );
+                    table.draw();
+                    
                     }).catch((error) => {
                     const err = new AjaxError(error);
                     console.log(err);
