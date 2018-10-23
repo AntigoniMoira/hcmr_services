@@ -1,21 +1,20 @@
 class AjaxError {
     constructor(error) {
         this.status = error.status;
-        //this.name = error.name;
-
-        if (error.statusText >= 200 && error.statusText <= 206) {
+        
+        if (error.status >= 200 && error.status <= 206) {
             this.msg = 'Επιτυχής καταχώρηση';
-        } else if (error.statusText === 400) {
+        } else if (error.status === 400) {
             this.msg = 'Παρακαλούμε ελέγξτε ξανά τα εισαχθέντα στοιχεία';
-        } else if (error.statusText === 401) {
+        } else if (error.status === 401) {
             this.msg = 'Unauthorized';
-        } else if (error.statusText === 404) {
-            this.msg = 'Η σελίδα αυτή δεν είναι διαθέσιμη';
-        } else if (error.statusText >= 500 && error.statusText <= 511) {
-            this.msg = 'Παρουσιάστηκε πρόβλημα στον server';
+        } else if (error.status === 404) {
+            this.msg = 'Not Found.';
+        } else if (error.status >= 500 && error.statusText <= 511) {
+            this.msg = 'Server is down.';
         } 
         else {
-            this.msg = 'Κάτι πήγε στραβά. Παρακαλούμε προσπαθήστε ξανά σε λίγο.';
+            this.msg = 'Something went wrong. Please try again later.';
         }
 
     }

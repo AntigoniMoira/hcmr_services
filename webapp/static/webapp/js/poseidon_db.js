@@ -165,6 +165,26 @@ function content(step) {
                 count_pr=count_pr+1;  
             }
         });
+        /*var submit_data={
+            datas : JSON.stringify({
+                user_email: $('#email').val(),
+                dt_of_request: Date.now(),
+                dt_from: $('#date-from-input').val(),
+                dt_to: $('#date-to-input').val(),
+                platforms: { 
+                    'TS': ts_list,
+                    'PR': pr_list
+                }
+            })
+        }
+        ajax.post(HomeRoutes.home.create_netcdf, submit_data).then((return_data) => {
+            console.log(return_data);
+        }).catch((error) => {
+            const err = new AjaxError(error);
+            console.log(err);
+        });*/
+    }
+    if(step==='submit'){
         var submit_data={
             datas : JSON.stringify({
                 user_email: $('#email').val(),
@@ -183,8 +203,6 @@ function content(step) {
             const err = new AjaxError(error);
             console.log(err);
         });
-    }
-    if(step==='submit'){
     }
 }
 
