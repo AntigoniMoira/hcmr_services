@@ -6,12 +6,12 @@ body {
 
 /****** home.html START ******/
 .home-body {
-	display: -ms-flexbox;
-	display: flex;
-	-ms-flex-align: center;
-	align-items: center;
-	padding-top: 40px;
-	padding-bottom: 40px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .home-container {
@@ -21,38 +21,56 @@ body {
   margin: auto;
   text-align: center;
 }
+
 /****** home.html END ******/
 /****** index.html START ******/
 
 .introduction-header {
-	max-width: 700px;
-  }
-.border-top { border-top: 1px solid #e5e5e5; }
-.border-bottom { border-bottom: 1px solid #e5e5e5; }
+  max-width: 700px;
+}
 
-.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }  
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
 
 .row.fix {
-	display: flex;
-	flex-wrap: wrap;
-  }
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  /*#A8B9C1*/
+/*#A8B9C1*/
 /****** index.html END ******/
 
 /****** online_data_map.html START ******/
 #mapModalLabel {
   text-align: center;
 }
+
 /****** online_data_map.html END ******/
 
 /****** online_data_table.html START ******/
 
-.online-data-table tr{
+.online-data-table tr {
   text-align: center;
 }
+
+.online-data-table th,
+.online-data-table td {
+  line-height: 1.2 !important;
+  padding: 5px !important;
+}
+
 .online-data-table-header {
-  background-color: #4284B0;;
+  background-color: #4284B0;
+  ;
   color: #fff;
   font-weight: bold;
   text-align: center;
@@ -66,15 +84,14 @@ caption {
 }
 
 .container.online-data-container {
-  /*background-color: #eee;
-  padding-top: 15px;*/
-  /*height: 100%;
-  width: 100vw;*/
+  font-size: 11px;
+  line-height: 1.0;
 }
 
-.online-data-table-cell{
+.online-data-table-cell {
   text-align: center;
 }
+
 /****** online_data_table.html END ******/
 
 /****** poseidon_db.html START ******/
@@ -85,16 +102,16 @@ caption {
   background: #fff;
 }
 
-  .wizard .nav-tabs {
-      position: relative;
-      margin: 40px auto;
-      margin-bottom: 0;
-      border-bottom-color: #e0e0e0;
-  }
+.wizard .nav-tabs {
+  position: relative;
+  margin: 40px auto;
+  margin-bottom: 0;
+  border-bottom-color: #e0e0e0;
+}
 
-  .wizard > div.wizard-inner {
-      position: relative;
-  }
+.wizard>div.wizard-inner {
+  position: relative;
+}
 
 .connecting-line {
   height: 2px;
@@ -108,7 +125,9 @@ caption {
   z-index: 1;
 }
 
-.wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
+.wizard .nav-tabs>li.active>a,
+.wizard .nav-tabs>li.active>a:hover,
+.wizard .nav-tabs>li.active>a:focus {
   color: #555555;
   cursor: default;
   border: 0;
@@ -129,15 +148,18 @@ span.round-tab {
   text-align: center;
   font-size: 25px;
 }
-span.round-tab i{
-  color:#555555;
+
+span.round-tab i {
+  color: #555555;
 }
+
 .wizard li.active span.round-tab {
   background: #fff;
   border: 2px solid #5bc0de;
-  
+
 }
-.wizard li.active span.round-tab i{
+
+.wizard li.active span.round-tab i {
   color: #5bc0de;
 }
 
@@ -146,7 +168,7 @@ span.round-tab:hover {
   border: 2px solid #333;
 }
 
-.wizard .nav-tabs > li {
+.wizard .nav-tabs>li {
   width: 25%;
 }
 
@@ -173,7 +195,7 @@ span.round-tab:hover {
   border-bottom-color: #5bc0de;
 }
 
-.wizard .nav-tabs > li a {
+.wizard .nav-tabs>li a {
   width: 70px;
   height: 70px;
   margin: 20px auto;
@@ -181,9 +203,9 @@ span.round-tab:hover {
   padding: 0;
 }
 
-  .wizard .nav-tabs > li a:hover {
-      background: transparent;
-  }
+.wizard .nav-tabs>li a:hover {
+  background: transparent;
+}
 
 .wizard .tab-pane {
   position: relative;
@@ -194,35 +216,99 @@ span.round-tab:hover {
   margin-top: 0;
 }
 
-@media( max-width : 585px ) {
+@media(max-width : 585px) {
 
   .wizard {
-      width: 90%;
-      height: auto !important;
+    width: 90%;
+    height: auto !important;
   }
 
   span.round-tab {
-      font-size: 16px;
-      width: 50px;
-      height: 50px;
-      line-height: 50px;
+    font-size: 16px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
   }
 
-  .wizard .nav-tabs > li a {
-      width: 50px;
-      height: 50px;
-      line-height: 50px;
+  .wizard .nav-tabs>li a {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
   }
 
   .wizard li.active:after {
-      content: " ";
-      position: absolute;
-      left: 35%;
+    content: " ";
+    position: absolute;
+    left: 35%;
   }
 }
 
 .classWithPad {
   margin-bottom: 5px;
 }
+
 /*stepper END*/
 /****** poseidon_db.html END ******/
+
+/****** activate_users.html START ******/
+#users-table>tbody>tr>td:nth-child(7) {
+  word-wrap: break-word;
+  max-width: 150px;
+}
+
+#activate-fail-message {
+  color: red;
+}
+
+#delete-fail-message {
+  color: red;
+}
+
+/****** activate_users.html END ******/
+
+/****** user_profile.html START ******/
+input.hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+#profile-image1 {
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  border: 2px solid #4284B0;
+  ;
+}
+
+.tital {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.bot-border {
+  border-bottom: 1px #f8f8f8 solid;
+  margin: 5px 0 5px 0
+}
+
+.profile-userbuttons {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.profile-userbuttons .btn {
+  /*text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;*/
+  padding: 6px 15px;
+  margin-right: 5px;
+}
+
+.fail-message {
+  color: red;
+}
+
+.success-message {
+  color: green;
+}
+
+/****** user_profile.html END ******/

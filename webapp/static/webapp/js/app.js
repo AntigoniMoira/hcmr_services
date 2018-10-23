@@ -1,20 +1,17 @@
-import {loginValidation} from "./login-validation.js";
-import {loginViaAPI} from "./oauth-via-api.js";
-import {logoutViaAPI} from "./oauth-via-api.js";
-import {atToSessionStorage} from "./oauth-via-api.js";
-import {apiRequest} from "./api-requests.js";
+import {loginViaAuthServer} from "./oauth-via-authserver.js";
+import {logoutViaAuthServer} from "./oauth-via-authserver.js";
 import {mapsFunction} from "./map.js";
 import {poseidonDB} from "./poseidon_db.js"
+import {ActivateUser} from "./activate-user.js";
+import {EditUserProfile} from "./user-profile.js";
 
 
-$( "#login-btn" ).click(loginViaAPI);
-$( "#logout-btn" ).click(logoutViaAPI);
-$( "#api-btn" ).click(apiRequest);
+$( "#login-btn" ).click(loginViaAuthServer);
+$( "#logout-btn" ).click(logoutViaAuthServer);
 
 $(document).ready(function() {
-    atToSessionStorage();
-    loginValidation();
     mapsFunction();
     poseidonDB();
-    
+    ActivateUser();
+    EditUserProfile();
 });
