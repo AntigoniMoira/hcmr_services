@@ -4,14 +4,18 @@ import AjaxError from './ajax-errors.js';
 const ajax = new Ajax($("[name=csrfmiddlewaretoken]").val());
 
 const loginViaAuthServer = function () {
-    //const url='http://localhost:8000/o/authorize/?response_type=code&state=random_state_string&client_id=5Sw0LLqCfke2eUmKeJKJrfK1GHPI9PGT0JoJv53n&URI=http://localhost:9000/webapp/access_token/';
-    const url=HomeRoutes.auth.login + '?response_type=code&state=random_state_string&client_id=5Sw0LLqCfke2eUmKeJKJrfK1GHPI9PGT0JoJv53n&URI=http://localhost:9000/webapp/access_token/';
+    const url=HomeRoutes.auth.login + '?response_type=code&state=random_state_string&client_id=NwVaE1ddbUDyzlCf0MvdVy7fRbwGCskjXtMPJy0z&URI=' + HomeRoutes.home.access_token;
     window.location.href=url;
     
 }; //function END
 
+const registerViaAuthServer = function () {
+    window.location.href=HomeRoutes.auth.register;
+    
+}; //function END
+
 const logoutViaAuthServer = function () {
-        ajax.get(HomeRoutes.auth.logout, {}).then((return_data) => {
+        ajax.get(HomeRoutes.home.logout, {}).then((return_data) => {
             console.log(return_data.success);
             if (return_data.success === true) {
                 window.location.href = return_data.redirectUri;
@@ -26,4 +30,4 @@ const logoutViaAuthServer = function () {
 }; //function END
 
 
-export {loginViaAuthServer, logoutViaAuthServer};
+export {loginViaAuthServer, registerViaAuthServer, logoutViaAuthServer};
