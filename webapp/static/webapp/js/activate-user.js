@@ -36,8 +36,9 @@ const ActivateUser = function () {
         $(".btn-activate").off().on('click', function () {
             ajax.post(HomeRoutes.home.activate_user, data).then((return_data) => {
                 if (return_data.success === true) {
-                    $($trigger).closest('tr').remove();
-                    $(".modal .close").click()
+                    /*$($trigger).closest('tr').remove();
+                    $(".modal .close").click()*/
+                    window.location.href = HomeRoutes.home.activate_user;
                 }else{
                     utils.showmsg('#activate-fail-message',return_data.message);
                 }

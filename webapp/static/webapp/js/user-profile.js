@@ -15,6 +15,7 @@ const EditUserProfile = function () {
 
     $(".form-profile-edit").submit(function (e) {
         e.preventDefault();
+        $('#edit-profile').modal('toggle');
         utils.hidemsg('#profile-success-message');
         utils.hidemsg('#profile-fail-message');
         const user_data = {
@@ -33,7 +34,7 @@ const EditUserProfile = function () {
         };
         ajax.post(HomeRoutes.home.user_profile, user_data).then((return_data) => {
             if (return_data.success === true) {
-                window.location.href = "http://localhost:9000/webapp/user_profile/";
+                window.location.href = HomeRoutes.home.user_profile;
             } else {
                 utils.showmsg('#profile-fail-message', return_data.message);
             }

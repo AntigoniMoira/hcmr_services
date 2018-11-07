@@ -10,70 +10,63 @@
                     <h4>User Profile</h4>
                 </div>
                 <div class="panel-body">
-                    <div class="box box-info">
-                        <div class="box-body">
-                            <div class="col-sm-4">
-                                <div align="center"> <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
-                                        id="profile-image1" class="img-circle img-responsive"></div>
-                                <br>
-                                <!-- /input-group -->
-                            </div>
-                            <div class="col-sm-8" align="center">
-                                <h4 style="color:#4284B0;">{{data.username}}</h4></span>
-                                <span>
-                                    <p>{{data.permission}}</p>
-                                </span>
-                            </div>
-                            <div class="clearfix"></div>
-                            <hr style="margin:5px 0 5px 0;">
-
-                            <div class="col-sm-5 col-xs-6 tital ">First Name:</div>
-                            <div class="col-sm-7 col-xs-6 ">{{data.first_name}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
-                            <div class="col-sm-5 col-xs-6 tital ">Last Name:</div>
-                            <div class="col-sm-7">{{data.last_name}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
-                            <div class="col-sm-5 col-xs-6 tital ">Date Of Birth:</div>
-                            <div class="col-sm-7">{{data.bdate}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
-                            <div class="col-sm-5 col-xs-6 tital ">Gender:</div>
-                            <div class="col-sm-7">{{data.gender}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
-                            <div class="col-sm-5 col-xs-6 tital ">Country:</div>
-                            <div class="col-sm-7">{{data.country}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
-                            <div class="col-sm-5 col-xs-6 tital ">Institution:</div>
-                            <div class="col-sm-7">{{data.institution}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
-                            <div class="col-sm-5 col-xs-6 tital ">Phone:</div>
-                            <div class="col-sm-7">{{data.phone}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
-                            <div class="col-sm-5 col-xs-6 tital ">Email address:</div>
-                            <div class="col-sm-7" id="profile_email">{{data.email}}</div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
-
-                            <div class="col-sm-5 col-xs-6 tital ">Description:</div>
-                            <div class="col-sm-7">{{data.description}}</div>
-
-                            <!-- /.box-body -->
-                        </div>
-                        <!-- /.box -->
+                    <div class="col-sm-4">
+                        <div align="center"> <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
+                                id="profile-image1" class="img-circle img-responsive"></div>
+                        <br>
+                        <!-- /input-group -->
                     </div>
+                    <div class="col-sm-8" align="center">
+                        <h4 style="color:#4284B0;">{{data.username}}</h4></span>
+                        <span>
+                            <p>{{data.permission}}</p>
+                        </span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr style="margin:5px 0 5px 0;">
+
+                    <div class="col-sm-5 col-xs-6 tital ">First Name:</div>
+                    <div class="col-sm-7 col-xs-6 ">{{data.first_name}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital ">Last Name:</div>
+                    <div class="col-sm-7">{{data.last_name}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital ">Date Of Birth:</div>
+                    <div class="col-sm-7">{% if data.bdate is None %} --/--/---- {% else %} {{data.bdate}} {% endif %}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital ">Gender:</div>
+                    <div class="col-sm-7">{{data.gender}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital ">Country:</div>
+                    <div class="col-sm-7">{{data.country}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital ">Institution:</div>
+                    <div class="col-sm-7">{{data.institution}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital ">Phone:</div>
+                    <div class="col-sm-7">{{data.phone}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital ">Email address:</div>
+                    <div class="col-sm-7" id="profile_email">{{data.email}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="col-sm-5 col-xs-6 tital ">Description:</div>
+                    <div class="col-sm-7">{{data.description}}</div>
                 </div>
             </div>
             <div class="profile-userbuttons">
@@ -82,8 +75,9 @@
                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#change-password"><span
                         class="fa fa-unlock-alt"></span> Change Password</button>
             </div>
-            <div class="success-message" id="profile-success-message"></div>
-            <div class="fail-message" id="profile-fail-message"></div>
+            <br>
+            <div class="alert alert-success" id="profile-success-message"></div>
+            <div class="alert alert-danger" id="profile-fail-message"></div>
         </div>
     </div>
     <!--row-->
@@ -104,21 +98,21 @@
                     <div class="form-group">
                         <label for="editUserName" class="col-4 col-form-label">Username:</label>
                         <div class="col-8">
-                            <input id="editUserName" name="username" value={{data.username}} class="form-control here"
+                            <input id="editUserName" name="username" value="{{data.username}}" class="form-control here"
                                 type="text">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="editFirstName" class="col-4 col-form-label">First Name:</label>
                         <div class="col-8">
-                            <input id="editFirstName" name="firstname" value={{data.first_name}} class="form-control here"
+                            <input id="editFirstName" name="firstname" value="{{data.first_name}}" class="form-control here"
                                 type="text">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="editLastName" class="col-4 col-form-label">Last Name:</label>
                         <div class="col-8">
-                            <input id="editLastName" name="lastname" value={{data.last_name}} class="form-control here"
+                            <input id="editLastName" name="lastname" value="{{data.last_name}}" class="form-control here"
                                 type="text">
                         </div>
                     </div>
@@ -132,30 +126,30 @@
                         <label for="editGender" class="col-4 col-form-label">Gender:</label>
                         <div class="col-8">
                             <select id="editGender" name="select" class="form-control">
-                                <option value="M">Male</option>
-                                <option value="F">Female</option>
-                                <option value="O">Other</option>
+                                <option value="M" {% if data.gender == "Male" %} selected="selected" {% endif %}>Male</option>
+                                <option value="F" {% if data.gender == "Female" %} selected="selected" {% endif %}>Female</option>
+                                <option value="O" {% if data.gender == "Other" %} selected="selected" {% endif %}>Other</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="editCountry" class="col-4 col-form-label">Country:</label>
                         <div class="col-8">
-                            <input id="editCountry" name="country" value={{data.country}} class="form-control here"
+                            <input id="editCountry" name="country" value="{{data.country}}" class="form-control here"
                                 type="text">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="editInstitution" class="col-4 col-form-label">Institution:</label>
                         <div class="col-8">
-                            <input id="editInstitution" name="institution" value={{data.institution}} class="form-control here"
+                            <input id="editInstitution" name="institution" value="{{data.institution}}" class="form-control here"
                                 type="text">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="editPhone" class="col-4 col-form-label">Phone:</label>
                         <div class="col-8">
-                            <input id="editPhone" name="phone" value={{data.phone}} class="form-control here" type="text">
+                            <input id="editPhone" name="phone" value="{{data.phone}}" class="form-control here" type="text">
                         </div>
                     </div>
                     <div class="form-group">
@@ -195,7 +189,7 @@
                         <label for="old-password" class="col-form-label">Old password:</label>
                         <input type="password" class="form-control" id="old-password">
                     </div>
-                    <div class="fail-message" id="change-psw-fail-message1"></div>
+                    <div class="alert alert-danger" id="change-psw-fail-message1"></div>
                     <div class="form-group">
                         <label for="new-password" class="col-form-label">New password:</label>
                         <input type="password" class="form-control" id="new-password">
@@ -204,14 +198,14 @@
                         <label for="confirm-new-password" class="col-form-label">Confirm new password:</label>
                         <input type="password" class="form-control" id="confirm-new-password">
                     </div>
-                    <div class="fail-message" id="change-psw-fail-message2"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary btn-change-password"><span class="fa fa-floppy-o"></span>
-                        Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="fa fa-remove"></span>
-                        Cancel</button>
-                </div>
+                    <div class="alert alert-danger" id="change-psw-fail-message2"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btn-change-password"><span class="fa fa-floppy-o"></span>
+                    Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="fa fa-remove"></span>
+                    Cancel</button>
+            </div>
             </form>
         </div>
     </div>
