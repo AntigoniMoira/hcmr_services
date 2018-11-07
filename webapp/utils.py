@@ -3,6 +3,7 @@ Functions for cURL requests.
 """
 import json
 import requests
+from django.conf import settings
 
 
 def update_access_token(request):
@@ -15,15 +16,15 @@ def update_access_token(request):
     request.session['refresh_token'] = json.loads(curl_res.text)['refresh_token']
     return request.session['access_token']
 
-def cURL_AT_request(code, redirect_url):
+def cURL_AT_request(code):
     data = {
         'grant_type': 'authorization_code',
         'code': code,
-        'redirect_uri': redirect_url,
+        'redirect_uri': settings.HOST_DOMAIN + '/webapp/access_token/',
         'scope': 'read introspection'
     }
 
-    response = requests.post('http://localhost:8000/o/token/', data=data, auth=(client_id, client_secret))
+    response = requests.post(settings.AUTH_DOMAIN + '/o/token/', data=data, auth=(client_id, client_secret))
     return response
 
 def cURL_RT_request(refresh_token):
@@ -34,7 +35,7 @@ def cURL_RT_request(refresh_token):
     'refresh_token': refresh_token
     }
 
-    response = requests.post('http://localhost:8000/o/token/', data=data)
+    response = requests.post(settings.AUTH_DOMAIN + '/o/token/', data=data)
     return response
 
 def cURL_REV_request(token, token_type):
@@ -43,7 +44,7 @@ def cURL_REV_request(token, token_type):
     ('token_type_hint', token_type)
     ]
 
-    response = requests.post('http://localhost:8000/o/revoke_token/', data=data, auth=(client_id, client_secret))
+    response = requests.post(settings.AUTH_DOMAIN + '/o/revoke_token/', data=data, auth=(client_id, client_secret))
     return response
     
 def cURL_GET_request(token, url):

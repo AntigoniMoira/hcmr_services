@@ -16,6 +16,7 @@ from .utils import (
     cURL_DELETE_request,
 )
 
+from django.conf import settings
 
 def home(request):
     """
@@ -27,6 +28,15 @@ def home(request):
     else:
         return render(request, 'webapp/home.html')
 
+def index(request):
+    """
+    Return home.html page.
+    """
+    if request.session._session:
+        return render(request, 'webapp/index.html')
+    else:
+        response = HttpResponseRedirect('/webapp/home/')
+        return response
 
 def error(request):
     """
@@ -44,8 +54,7 @@ def access_token(request):
     Exchange code with access and refresh token.
     """
     code = request.GET.get('code')
-    redirect_url = 'http://localhost:9000/webapp/access_token/'
-    curl_res = cURL_AT_request(code, redirect_url)
+    curl_res = cURL_AT_request(code)
     request.session.set_expiry(60 * 60 * 24 * 7)
     request.session['access_token'] = json.loads(curl_res.text)['access_token']
     request.session['refresh_token'] = json.loads(curl_res.text)[
@@ -57,11 +66,11 @@ def access_token(request):
         request.session['scope'] = 'staff'
     else:
         request.session['scope'] = 'user'
-    url = 'http://localhost:8000/auth/user_details/'
+    url = settings.AUTH_DOMAIN + '/auth/user_details'
     token = request.session['access_token']
     curl_res = cURL_GET_request(token, url)
     request.session['email'] = json.loads(curl_res.text)['email']
-    return HttpResponseRedirect('../poseidon_db/')
+    return HttpResponseRedirect('../index/')
 
 
 def logout(request):
@@ -88,7 +97,7 @@ def user_profile(request):
     """
     if request.session._session:
         if request.method == 'GET':
-            url = 'http://localhost:8000/auth/user_details/'
+            url = settings.AUTH_DOMAIN + '/auth/user_details/'
             token = request.session['access_token']
             curl_res = cURL_GET_request(token, url)
             if curl_res.status_code == 401:
@@ -98,7 +107,7 @@ def user_profile(request):
             return render(request, 'webapp/user_profile.html', {'data': data})
         if request.method == 'POST':
             data = json.loads(request.POST.get('data', None))
-            url = 'http://localhost:8000/auth/user_details/'
+            url = settings.AUTH_DOMAIN + '/auth/user_details/'
             token = request.session['access_token']
             curl_res = cURL_PUT_request(token, url, data)
             if curl_res.status_code == 401:
@@ -124,7 +133,7 @@ def change_password(request):
                 'old_psw': request.POST.get('old_psw', None),
                 'new_psw': request.POST.get('new_psw', None)
             }
-            url = 'http://localhost:8000/auth/new_password/'
+            url = settings.AUTH_DOMAIN + '/auth/new_password/'
             token = request.session['access_token']
             curl_res = cURL_PUT_request(token, url, data)
             if curl_res.status_code == 401:
@@ -144,19 +153,20 @@ def activate_user(request):
     View to return activate_users.html or update user's account (is_active=False -> is_active=True).
     """
     if request.method == 'GET':
-        url = 'http://localhost:8000/auth/activate/'
+        url = settings.AUTH_DOMAIN + '/auth/activate/'
         token = request.session['access_token']
         curl_res = cURL_GET_request(token, url)
         if curl_res.status_code == 401:
             token = update_access_token(request)
             curl_res = cURL_GET_request(token, url)
-        users = json.loads(curl_res.text)['data']
-        return render(request, 'webapp/activate_users.html', {'users': users})
+        inactive_users = json.loads(curl_res.text)['inactive']
+        active_users = json.loads(curl_res.text)['active']
+        return render(request, 'webapp/activate_users.html', {'inactive_users': inactive_users, 'active_users' : active_users})
     if request.method == 'POST':
         data = {
             'email': request.POST.get('email', None)
         }
-        url = 'http://localhost:8000/auth/activate/'
+        url = settings.AUTH_DOMAIN + '/auth/activate/'
         token = request.session['access_token']
         curl_res = cURL_PUT_request(token, url, data)
         if curl_res.status_code == 401:
@@ -176,7 +186,7 @@ def delete_user(request):
             'email': request.POST.get('email', None),
             'reason': request.POST.get('reason', None)
         }
-        url = 'http://localhost:8000/auth/delete_user/'
+        url = settings.AUTH_DOMAIN + '/auth/delete_user/'
         token = request.session['access_token']
         curl_res = cURL_DELETE_request(token, url, data)
         if curl_res.status_code == 401:
@@ -194,7 +204,7 @@ def online_data(request, language):
     """
     View to return online_data_poseidon.html or online_data_table.html page.
     """
-    url = 'http://localhost:8001/api/online_data_from_mv/'
+    url = settings.API_DOMAIN + '/api/online_data_from_mv/'
     serialized_data = urllib.request.urlopen(url).read()
 
     finaldata = {
@@ -291,6 +301,15 @@ def online_data(request, language):
     if path[2] == 'online_data_poseidon':
         return render(request, 'webapp/online_data_poseidon.html', {'data': finaldata, 'date': finaldate, 'lang': language})
 
+def online_data_map(request):
+    """
+    View to return online_data_map.html.
+    """
+    if request.session._session:
+        return render(request, 'webapp/online_data_map.html')
+    else:
+        response = HttpResponseRedirect('/webapp/home/')
+        return response
 
 def poseidon_db(request):
     """
@@ -308,12 +327,12 @@ def platforms_between(request):
     View to return platforms with measurements between a start date and an end data.
     """
     if request.method == 'GET':
-        url = 'http://localhost:8001/api/poseidon_platforms_with_measurements_between/?start_date=' + \
+        url = settings.API_DOMAIN + '/api/poseidon_platforms_with_measurements_between/?start_date=' + \
             request.GET.get('start_date', None)+'&end_date=' + \
             request.GET.get('end_date', None)
         token = request.session['access_token']
         curl_res = cURL_GET_request(token, url)
-        if curl_res.status_code == 401:
+        if curl_res.status_code == 403:
             token = update_access_token(request)
             curl_res = cURL_GET_request(token, url)
         return JsonResponse({
@@ -329,12 +348,12 @@ def measurements_between(request):
     View to return platform's parameters with measurements between a start date and an end data.
     """
     if request.method == 'GET':
-        url = 'http://localhost:8001/api/poseidon_platform_parameters_with_measurements_between/?platform=' + \
+        url = settings.API_DOMAIN + '/api/poseidon_platform_parameters_with_measurements_between/?platform=' + \
             request.GET.get('platform', None)+'&start_date=' + request.GET.get(
                 'start_date', None)+'&end_date='+request.GET.get('end_date', None)
         token = request.session['access_token']
         curl_res = cURL_GET_request(token, url)
-        if curl_res.status_code == 401:
+        if curl_res.status_code == 403:
             token = update_access_token(request)
             curl_res = cURL_GET_request(token, url)
         return JsonResponse({

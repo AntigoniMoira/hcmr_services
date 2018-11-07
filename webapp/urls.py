@@ -4,11 +4,13 @@ from django.conf.urls import url
 
 urlpatterns = [
         url(r'^home/', views.home, name='home'),
+        url(r'^index/', views.index, name='index'),
         url(r'^poseidon_db/$', views.poseidon_db, name='poseidon_db'),
         url(r'^platforms_between/$', views.platforms_between, name='platforms_between'),
         url(r'^measurements_between/$', views.measurements_between, name='measurements_between'),
         url(r'^online_data_poseidon/(?P<language>\w+)', views.online_data, name='online_data'),
-        url(r'^online_data_table/(?P<language>\w+)', views.online_data, name='online_data'),
+        url(r'^online_data_table/(?P<language>\w+)', views.online_data, name='online_data_table'),
+        url(r'^online_data_map/', views.online_data_map, name='online_data_map'),
         url(r'^logout/', views.logout, name='logout'),
         url(r'^user_profile/', views.user_profile, name='user_profile'),
         url(r'^change_password/', views.change_password, name='change_password'),
