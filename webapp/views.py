@@ -18,6 +18,7 @@ from .utils import (
 
 from django.conf import settings
 
+
 def home(request):
     """
     Return home.html page.
@@ -28,6 +29,7 @@ def home(request):
     else:
         return render(request, 'webapp/home.html')
 
+
 def index(request):
     """
     Return home.html page.
@@ -37,6 +39,7 @@ def index(request):
     else:
         response = HttpResponseRedirect('/webapp/home/')
         return response
+
 
 def error(request):
     """
@@ -161,7 +164,7 @@ def activate_user(request):
             curl_res = cURL_GET_request(token, url)
         inactive_users = json.loads(curl_res.text)['inactive']
         active_users = json.loads(curl_res.text)['active']
-        return render(request, 'webapp/activate_users.html', {'inactive_users': inactive_users, 'active_users' : active_users})
+        return render(request, 'webapp/activate_users.html', {'inactive_users': inactive_users, 'active_users': active_users})
     if request.method == 'POST':
         data = {
             'email': request.POST.get('email', None)
@@ -204,102 +207,107 @@ def online_data(request, language):
     """
     View to return online_data_poseidon.html or online_data_table.html page.
     """
-    url = settings.API_DOMAIN + '/api/online_data_from_mv/'
-    serialized_data = urllib.request.urlopen(url).read()
+    if request.session._session:
+        url = settings.API_DOMAIN + '/api/online_data_from_mv/'
+        serialized_data = urllib.request.urlopen(url).read()
 
-    finaldata = {
-        'TS_MO_ATHOS': {
-            15: 'N/A',
-            19: 'N/A',
-            33: 'N/A',
-            22: 'N/A',
-            32: 'N/A',
-            112: 'N/A',
-            14: 'N/A',
-            122: 'N/A',
-            27: 'N/A',
-            24: 'N/A',
-            23: 'N/A'
-        },
-        'TS_MO_MYKON': {
-            15: 'N/A',
-            19: 'N/A',
-            33: 'N/A',
-            22: 'N/A',
-            32: 'N/A',
-            112: 'N/A',
-            14: 'N/A',
-            122: 'N/A',
-            27: 'N/A',
-            24: 'N/A',
-            23: 'N/A'
-        },
-        'TS_MO_SARON': {
-            15: 'N/A',
-            19: 'N/A',
-            33: 'N/A',
-            22: 'N/A',
-            32: 'N/A',
-            112: 'N/A',
-            14: 'N/A',
-            122: 'N/A',
-            27: 'N/A',
-            24: 'N/A',
-            23: 'N/A'
-        },
-        'TS_MO_HERAKLION': {
-            15: 'N/A',
-            19: 'N/A',
-            33: 'N/A',
-            22: 'N/A',
-            32: 'N/A',
-            112: 'N/A',
-            14: 'N/A',
-            122: 'N/A',
-            27: 'N/A',
-            24: 'N/A',
-            23: 'N/A'
-        },
-        'TS_MO_68422': {
-            15: 'N/A',
-            19: 'N/A',
-            33: 'N/A',
-            22: 'N/A',
-            32: 'N/A',
-            112: 'N/A',
-            14: 'N/A',
-            122: 'N/A',
-            27: 'N/A',
-            24: 'N/A',
-            23: 'N/A'
-        },
-        'TS_MO_61277': {
-            15: 'N/A',
-            19: 'N/A',
-            33: 'N/A',
-            22: 'N/A',
-            32: 'N/A',
-            112: 'N/A',
-            14: 'N/A',
-            122: 'N/A',
-            27: 'N/A',
-            24: 'N/A',
-            23: 'N/A'
+        finaldata = {
+            'TS_MO_ATHOS': {
+                15: 'N/A',
+                19: 'N/A',
+                33: 'N/A',
+                22: 'N/A',
+                32: 'N/A',
+                112: 'N/A',
+                14: 'N/A',
+                122: 'N/A',
+                27: 'N/A',
+                24: 'N/A',
+                23: 'N/A'
+            },
+            'TS_MO_MYKON': {
+                15: 'N/A',
+                19: 'N/A',
+                33: 'N/A',
+                22: 'N/A',
+                32: 'N/A',
+                112: 'N/A',
+                14: 'N/A',
+                122: 'N/A',
+                27: 'N/A',
+                24: 'N/A',
+                23: 'N/A'
+            },
+            'TS_MO_SARON': {
+                15: 'N/A',
+                19: 'N/A',
+                33: 'N/A',
+                22: 'N/A',
+                32: 'N/A',
+                112: 'N/A',
+                14: 'N/A',
+                122: 'N/A',
+                27: 'N/A',
+                24: 'N/A',
+                23: 'N/A'
+            },
+            'TS_MO_HERAKLION': {
+                15: 'N/A',
+                19: 'N/A',
+                33: 'N/A',
+                22: 'N/A',
+                32: 'N/A',
+                112: 'N/A',
+                14: 'N/A',
+                122: 'N/A',
+                27: 'N/A',
+                24: 'N/A',
+                23: 'N/A'
+            },
+            'TS_MO_68422': {
+                15: 'N/A',
+                19: 'N/A',
+                33: 'N/A',
+                22: 'N/A',
+                32: 'N/A',
+                112: 'N/A',
+                14: 'N/A',
+                122: 'N/A',
+                27: 'N/A',
+                24: 'N/A',
+                23: 'N/A'
+            },
+            'TS_MO_61277': {
+                15: 'N/A',
+                19: 'N/A',
+                33: 'N/A',
+                22: 'N/A',
+                32: 'N/A',
+                112: 'N/A',
+                14: 'N/A',
+                122: 'N/A',
+                27: 'N/A',
+                24: 'N/A',
+                23: 'N/A'
+            }
         }
-    }
 
-    data = json.loads(serialized_data)
-    results = data['results']
-    #date = dateutil.parser.parse(results[0]['dt'])
-    date = time.strptime(results[0]['dt'], '%Y-%m-%dT%H:%M:%SZ')
-    finaldate = time.strftime('%d.%m.%Y %H:%M', date)
-    for row in results:
-        finaldata[row['platform']][row['param']] = row['val']
-    path = request.path.split('/')
-    if path[2] == 'online_data_table':
-        return render(request, 'webapp/online_data_table.html', {'data': finaldata, 'date': finaldate, 'lang': language})
-    if path[2] == 'online_data_poseidon':
-        return render(request, 'webapp/online_data_poseidon.html', {'data': finaldata, 'date': finaldate, 'lang': language})
+        data = json.loads(serialized_data.decode('utf-8'))
+        results = data['results']
+        #date = dateutil.parser.parse(results[0]['dt'])
+        date = time.strptime(results[0]['dt'], '%Y-%m-%dT%H:%M:%SZ')
+        finaldate = time.strftime('%d.%m.%Y %H:%M', date)
+        for row in results:
+            finaldata[row['platform']][row['param']] = row['val']
+        path = request.path.split('/')
+        if path[2] == 'online_data_table':
+            return render(request, 'webapp/online_data_table.html', {'data': finaldata, 'date': finaldate, 'lang': language})
+        if path[2] == 'online_data_poseidon':
+            return render(request, 'webapp/online_data_poseidon.html', {'data': finaldata, 'date': finaldate, 'lang': language})
+    else:
+        response = HttpResponseRedirect('/webapp/home/')
+        return response
+
 
 def online_data_map(request):
     """
@@ -310,6 +318,7 @@ def online_data_map(request):
     else:
         response = HttpResponseRedirect('/webapp/home/')
         return response
+
 
 def poseidon_db(request):
     """
@@ -362,6 +371,7 @@ def measurements_between(request):
     if request.method == 'POST':
         response = HttpResponseRedirect('/webapp/error/')
         return response
+
 
 def create_netcdf(request):
     print(request)

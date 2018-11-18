@@ -1,7 +1,9 @@
 import Ajax from './Ajax.js';
+import Utils from './Utils.js';
 import HomeRoutes from './routes.js';
 import AjaxError from './ajax-errors.js';
 const ajax = new Ajax($("[name=csrfmiddlewaretoken]").val());
+const utils = new Utils();
 
 
 // Steppers
@@ -38,6 +40,7 @@ const poseidonDB = function () {
         var $active = $('.wizard .nav-tabs li.active');
         content(step);
         $active.next().removeClass('disabled');
+        $active.addClass('disabled');
         nextTab($active);
     });
 
@@ -45,6 +48,8 @@ const poseidonDB = function () {
         var step = $(this).val();
         clear_content(step);
         var $active = $('.wizard .nav-tabs li.active');
+        $active.prev().removeClass('disabled');
+        $active.addClass('disabled');
         prevTab($active);
     });
 
@@ -77,9 +82,15 @@ function content(step) {
         };
 
         ajax.get(HomeRoutes.home.platforms_between, date_data).then((return_data) => {
-            for (var x = 0; x < return_data['data'].length; x++) {
-                var plat_name = return_data['data'][x].platform;
-                $('#platforms').append("<option value=" + plat_name + ">" + plat_name + "</option>");
+            if (return_data['data'].length == 0) {
+                utils.showmsg('#select-platforms-fail-message', 'Data not available.');
+            }
+            else{
+                utils.hidemsg('#select-platforms-fail-message');
+                for (var x = 0; x < return_data['data'].length; x++) {
+                    var plat_name = return_data['data'][x].platform;
+                    $('#platforms').append("<option value=" + plat_name + ">" + plat_name + "</option>");
+                }
             }
             $("#platforms").multiselect('rebuild');
         }).catch((error) => {
