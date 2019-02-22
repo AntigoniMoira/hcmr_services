@@ -40,6 +40,15 @@ def index(request):
         response = HttpResponseRedirect('/webapp/home/')
         return response
 
+def gliders(request):
+    """
+    Return gliders.html page.
+    """
+    if request.session._session:
+        return render(request, 'webapp/gliders.html')
+    else:
+        response = HttpResponseRedirect('/webapp/home/')
+        return response
 
 def error(request):
     """

@@ -6,6 +6,7 @@ urlpatterns = [
         url(r'^home/', views.home, name='home'),
         url(r'^index/', views.index, name='index'),
         url(r'^poseidon_db/$', views.poseidon_db, name='poseidon_db'),
+        url(r'^gliders/$', views.gliders, name='gliders'),
         url(r'^platforms_between/$', views.platforms_between, name='platforms_between'),
         url(r'^measurements_between/$', views.measurements_between, name='measurements_between'),
         url(r'^online_data_poseidon/(?P<language>\w+)', views.online_data, name='online_data'),

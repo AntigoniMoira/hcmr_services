@@ -15,6 +15,7 @@
     <ul class="nav navbar-nav navbar-right">
       <li class="{% if  request.resolver_match.url_name == 'index'%}active{% endif %}"><a href="{% url 'index' %}">Index</a></li>
       <li class="{% if  request.resolver_match.url_name == 'poseidon_db'%}active{% endif %}"><a href="{% url 'poseidon_db' %}">Download</a></li>
+      <li class="{% if  request.resolver_match.url_name == 'gliders'%}active{% endif %}"><a href="{% url 'gliders' %}">Gliders</a></li>
       <li class="dropdown {% if  request.resolver_match.url_name == 'online_data_table' or request.resolver_match.url_name == 'online_data_map'%}active{% endif %}">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">On
           line data <span class="caret"></span></a>
