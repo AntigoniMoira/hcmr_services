@@ -19,7 +19,8 @@
 
     <h2 class="text-center">Available Services</h2>
     <div class="row">
-        <div class="col-md-{% if request.session.scope == 'admin' %}4{% else%}6{% endif %} text-center">
+        <!--<div class="col-md-{% if request.session.scope == 'admin' %}3{% else%}4{% endif %} text-center">-->
+        <div class="col-md-4 text-center">
             <div class="box">
                 <div class="box-content">
                     <h1 class="tag-title">Download DB</h1>
@@ -34,7 +35,20 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-{% if request.session.scope == 'admin' %}4{% else%}6{% endif %} text-center">
+        <!--<div class="col-md-{% if request.session.scope == 'admin' %}3{% else%}4{% endif %} text-center">-->
+        <div class="col-md-4 text-center">
+            <div class="box">
+                <div class="box-content">
+                    <h1 class="tag-title">Gliders</h1>
+                    <hr />
+                    <p>Mpla mpla mpla mpla</p>
+                    <br />
+                    <a href="{% url 'gliders' %}" class="btn btn-block btn-primary">Try it</a>
+                </div>
+            </div>
+        </div>
+        <!--<div class="col-md-{% if request.session.scope == 'admin' %}3{% else%}4{% endif %} text-center">-->
+        <div class="col-md-4 text-center">
             <div class="box">
                 <div class="box-content">
                     <h1 class="tag-title">Online Data</h1>
@@ -48,7 +62,9 @@
                 </div>
             </div>
         </div>
-        {% if request.session.scope == 'admin' %}
+    </div>
+    {% if request.session.scope == 'admin' %}
+    <div class="row">
         <div class="col-md-4 text-center">
             <div class="box">
                 <div class="box-content">
@@ -60,9 +76,8 @@
                 </div>
             </div>
         </div>
-        {% endif %}
-
     </div>
+    {% endif %}
 
 </div>
 
