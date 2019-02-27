@@ -8,6 +8,41 @@ li.active {
   color: red;
 }
 
+/****** home_page.html START ******/
+
+#poseidon-logo{
+  background-image: url('http://3.bp.blogspot.com/-aDX4M8UBDw4/UIG_USPKoRI/AAAAAAAAABk/k2m0RXAU2MY/s400/SetWidth480-Poseidon-480x310.jpg');
+}
+
+#top-bar {
+  padding: 5px 0;
+}
+#top-bar ul {
+  margin-bottom: 0;
+}
+#top-bar ul li {
+  display: inline-block;
+  margin-right: 10px;
+}
+#top-bar ul li a i {
+  margin-right: 3px;
+}
+#top-bar ul li:last-child {
+  margin-right: 0;
+}
+.bg-dark {
+  background: rgb(6, 73, 119);
+}
+
+.pull-right {
+  float: right!important;
+}
+
+.white-links a {
+  color: #ebeaea;
+}
+/****** home_page.html END ******/
+
 /****** home.html START ******/
 .home-body {
   display: -ms-flexbox;

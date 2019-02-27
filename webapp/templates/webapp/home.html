@@ -2,17 +2,79 @@
 {% load staticfiles %}
 
 {% block content %}
-<div class="home-body">
-    <div class="home-container">
-        <div class="row form-group">
-            <img class="mb-4" src="{% static 'webapp/images/logo-hcmr-big.png' %}" alt="" width="72" height="72">
+<div id="top-bar" class="bg-dark">
+    <div class="container">
+        <ul class="tools pull-right white-links">
+            <li><a href="#" id="login-link"><i class="fa fa-sign-in"></i> Log In</a></li>
+            <li><a href="#" id="register-link"><i class="fa fa-user"></i> Sign Up</a></li>
+        </ul>
+    </div>
+</div>
+<div class="poseidon-logo">
+    <center><img class="mb-4" src="{% static 'webapp/images/headerphoto.gif' %}" alt="" width="920" height="120"></center>
+</div>
+<!-- Page Content -->
+<div class="container index-container">
+
+    <!-- Jumbotron Header -->
+    <header class="jumbotron">
+        <h2 class="display-3">Welcome to POSEIDON system services!</h2>
+        <p class="lead">POSEIDON system is a unique planning tool in the endeavour for the protection of the marine
+            environment. It also provides a competitive advantage for the development of business activity, the
+            prevention of disaster, and the safeguarding of human life. In the frame of the world-wide trend for the
+            development of operational oceanography, POSEIDON network places Greece among the leading countries in this
+            field.</p>
+        <a href="http://poseidon.hcmr.gr/index.php" class="btn btn-primary btn-lg">Visit our website</a>
+    </header>
+
+    <h2 class="text-center">Available Services</h2>
+    <div class="row">
+        <!--<div class="col-md-{% if request.session.scope == 'admin' %}3{% else%}4{% endif %} text-center">-->
+        <div class="col-md-4 text-center">
+            <div class="box">
+                <div class="box-content">
+                    <h1 class="tag-title">Download DB</h1>
+                    <hr />
+                    <p>The data that have been collected during the POSEIDON network operation are easily
+                        accessible through a web interface to the system's database. The database is updating in
+                        daily basis offering full access both to archived and recent data. The user has also access
+                        to multiple metadata information regarding the buoys sensors, location, operational period
+                        and other combined information.</p>
+                    <br />
+                    <a href="{% url 'poseidon_db' %}" class="btn btn-block btn-primary">Try it</a>
+                </div>
+            </div>
         </div>
-        <div class="row form-group">
-            <button type="button" class="btn btn-primary col-md-12" id="login-btn">Sign In</button>
+        <!--<div class="col-md-{% if request.session.scope == 'admin' %}3{% else%}4{% endif %} text-center">-->
+        <div class="col-md-4 text-center">
+            <div class="box">
+                <div class="box-content">
+                    <h1 class="tag-title">Gliders</h1>
+                    <hr />
+                    <p>Mpla mpla mpla mpla</p>
+                    <br />
+                    <a href="http://poseidonsystem.gr/gliders/" class="btn btn-block btn-primary">Try it</a>
+                </div>
+            </div>
         </div>
-        <div class="row form-group">
-            <button type="button" class="btn btn-primary col-md-12" id="register-btn">Sign Up</button>
+        <!--<div class="col-md-{% if request.session.scope == 'admin' %}3{% else%}4{% endif %} text-center">-->
+        <div class="col-md-4 text-center">
+            <div class="box">
+                <div class="box-content">
+                    <h1 class="tag-title">Online Data</h1>
+                    <hr />
+                    <p>The Online data page of POSEIDON System is offering access to the most recent data recorded
+                        by the buoy network in the Aegean Sea and Ionian Sea. The data are available either as time
+                        series graphs or as text based format for the latest transmission.</p>
+                    <br />
+                    <a href="http://localhost:9000/webapp/online_data_poseidon/en" class="btn btn-block btn-primary">Try table</a>
+                    <a href="http://poseidonsystem.gr/map" class="btn btn-block btn-primary">Try map</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+</div>
+<!-- /.container -->
 {% endblock %}

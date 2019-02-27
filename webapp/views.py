@@ -40,6 +40,7 @@ def index(request):
         response = HttpResponseRedirect('/webapp/home/')
         return response
 
+
 def gliders(request):
     """
     Return gliders.html page.
@@ -49,6 +50,7 @@ def gliders(request):
     else:
         response = HttpResponseRedirect('/webapp/home/')
         return response
+
 
 def error(request):
     """
@@ -66,6 +68,7 @@ def access_token(request):
     Exchange code with access and refresh token.
     """
     code = request.GET.get('code')
+    state=request.GET.get('state', None)
     curl_res = cURL_AT_request(code)
     request.session.set_expiry(60 * 60 * 24 * 7)
     request.session['access_token'] = json.loads(curl_res.text)['access_token']
@@ -82,7 +85,7 @@ def access_token(request):
     token = request.session['access_token']
     curl_res = cURL_GET_request(token, url)
     request.session['email'] = json.loads(curl_res.text)['email']
-    return HttpResponseRedirect('../index/')
+    return HttpResponseRedirect('../'+ state +'/')
 
 
 def logout(request):
@@ -216,106 +219,106 @@ def online_data(request, language):
     """
     View to return online_data_poseidon.html or online_data_table.html page.
     """
-    if request.session._session:
-        url = settings.API_DOMAIN + '/api/online_data_from_mv/'
-        serialized_data = urllib.request.urlopen(url).read()
+    url = settings.API_DOMAIN + '/api/online_data_from_mv/'
+    serialized_data = urllib.request.urlopen(url).read()
 
-        finaldata = {
-            'TS_MO_ATHOS': {
-                15: 'N/A',
-                19: 'N/A',
-                33: 'N/A',
-                22: 'N/A',
-                32: 'N/A',
-                112: 'N/A',
-                14: 'N/A',
-                122: 'N/A',
-                27: 'N/A',
-                24: 'N/A',
-                23: 'N/A'
-            },
-            'TS_MO_MYKON': {
-                15: 'N/A',
-                19: 'N/A',
-                33: 'N/A',
-                22: 'N/A',
-                32: 'N/A',
-                112: 'N/A',
-                14: 'N/A',
-                122: 'N/A',
-                27: 'N/A',
-                24: 'N/A',
-                23: 'N/A'
-            },
-            'TS_MO_SARON': {
-                15: 'N/A',
-                19: 'N/A',
-                33: 'N/A',
-                22: 'N/A',
-                32: 'N/A',
-                112: 'N/A',
-                14: 'N/A',
-                122: 'N/A',
-                27: 'N/A',
-                24: 'N/A',
-                23: 'N/A'
-            },
-            'TS_MO_HERAKLION': {
-                15: 'N/A',
-                19: 'N/A',
-                33: 'N/A',
-                22: 'N/A',
-                32: 'N/A',
-                112: 'N/A',
-                14: 'N/A',
-                122: 'N/A',
-                27: 'N/A',
-                24: 'N/A',
-                23: 'N/A'
-            },
-            'TS_MO_68422': {
-                15: 'N/A',
-                19: 'N/A',
-                33: 'N/A',
-                22: 'N/A',
-                32: 'N/A',
-                112: 'N/A',
-                14: 'N/A',
-                122: 'N/A',
-                27: 'N/A',
-                24: 'N/A',
-                23: 'N/A'
-            },
-            'TS_MO_61277': {
-                15: 'N/A',
-                19: 'N/A',
-                33: 'N/A',
-                22: 'N/A',
-                32: 'N/A',
-                112: 'N/A',
-                14: 'N/A',
-                122: 'N/A',
-                27: 'N/A',
-                24: 'N/A',
-                23: 'N/A'
-            }
+    finaldata = {
+        'TS_MO_ATHOS': {
+            15: 'N/A',
+            19: 'N/A',
+            33: 'N/A',
+            22: 'N/A',
+            32: 'N/A',
+            112: 'N/A',
+            14: 'N/A',
+            122: 'N/A',
+            27: 'N/A',
+            24: 'N/A',
+            23: 'N/A'
+        },
+        'TS_MO_MYKON': {
+            15: 'N/A',
+            19: 'N/A',
+            33: 'N/A',
+            22: 'N/A',
+            32: 'N/A',
+            112: 'N/A',
+            14: 'N/A',
+            122: 'N/A',
+            27: 'N/A',
+            24: 'N/A',
+            23: 'N/A'
+        },
+        'TS_MO_SARON': {
+            15: 'N/A',
+            19: 'N/A',
+            33: 'N/A',
+            22: 'N/A',
+            32: 'N/A',
+            112: 'N/A',
+            14: 'N/A',
+            122: 'N/A',
+            27: 'N/A',
+            24: 'N/A',
+            23: 'N/A'
+        },
+        'TS_MO_HERAKLION': {
+            15: 'N/A',
+            19: 'N/A',
+            33: 'N/A',
+            22: 'N/A',
+            32: 'N/A',
+            112: 'N/A',
+            14: 'N/A',
+            122: 'N/A',
+            27: 'N/A',
+            24: 'N/A',
+            23: 'N/A'
+        },
+        'TS_MO_68422': {
+            15: 'N/A',
+            19: 'N/A',
+            33: 'N/A',
+            22: 'N/A',
+            32: 'N/A',
+            112: 'N/A',
+            14: 'N/A',
+            122: 'N/A',
+            27: 'N/A',
+            24: 'N/A',
+            23: 'N/A'
+        },
+        'TS_MO_61277': {
+            15: 'N/A',
+            19: 'N/A',
+            33: 'N/A',
+            22: 'N/A',
+            32: 'N/A',
+            112: 'N/A',
+            14: 'N/A',
+            122: 'N/A',
+            27: 'N/A',
+            24: 'N/A',
+            23: 'N/A'
         }
+    }
 
-        data = json.loads(serialized_data.decode('utf-8'))
-        results = data['results']
-        #date = dateutil.parser.parse(results[0]['dt'])
-        date = time.strptime(results[0]['dt'], '%Y-%m-%dT%H:%M:%SZ')
-        finaldate = time.strftime('%d.%m.%Y %H:%M', date)
-        for row in results:
-            finaldata[row['platform']][row['param']] = row['val']
-        path = request.path.split('/')
-        if path[2] == 'online_data_table':
+    data = json.loads(serialized_data.decode('utf-8'))
+    results = data['results']
+    #date = dateutil.parser.parse(results[0]['dt'])
+    date = time.strptime(results[0]['dt'], '%Y-%m-%dT%H:%M:%SZ')
+    finaldate = time.strftime('%d.%m.%Y %H:%M', date)
+    for row in results:
+        finaldata[row['platform']][row['param']] = row['val']
+    path = request.path.split('/')
+    if path[2] == 'online_data_table':
+        if request.session._session:
             return render(request, 'webapp/online_data_table.html', {'data': finaldata, 'date': finaldate, 'lang': language})
-        if path[2] == 'online_data_poseidon':
-            return render(request, 'webapp/online_data_poseidon.html', {'data': finaldata, 'date': finaldate, 'lang': language})
-    else:
-        response = HttpResponseRedirect('/webapp/home/')
+        else:
+            response = HttpResponseRedirect('/webapp/home/')
         return response
+    if path[2] == 'online_data_poseidon':
+        return render(request, 'webapp/online_data_poseidon.html', {'data': finaldata, 'date': finaldate, 'lang': language})
 
 
 def online_data_map(request):
@@ -336,7 +339,8 @@ def poseidon_db(request):
     if request.session._session:
         return render(request, 'webapp/poseidon_db.html')
     else:
-        response = HttpResponseRedirect('/webapp/home/')
+        url ='http://localhost:8000/o/authorize/?response_type=code&state=poseidon_db&client_id=NwVaE1ddbUDyzlCf0MvdVy7fRbwGCskjXtMPJy0z&URI=/webapp/access_token/'
+        response = HttpResponseRedirect(url)
         return response
 
 
