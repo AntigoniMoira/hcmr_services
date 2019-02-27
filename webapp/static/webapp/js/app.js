@@ -6,8 +6,10 @@ import {ActivateUser} from "./activate-user.js";
 import {EditUserProfile} from "./user-profile.js";
 
 
-$( "#login-btn" ).click(loginViaAuthServer);
-$( "#register-btn" ).click(registerViaAuthServer);
+//$( "#login-btn" ).click(loginViaAuthServer);
+//$( "#register-btn" ).click(registerViaAuthServer);
+$( "#login-link" ).click(loginViaAuthServer);
+$( "#register-link" ).click(registerViaAuthServer);
 $( "#logout-btn" ).click(logoutViaAuthServer);
 
 

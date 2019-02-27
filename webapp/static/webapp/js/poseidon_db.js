@@ -141,6 +141,7 @@ function content(step) {
     }
     //Final step. Data collection and send to backend
     if (step === 'submit') {
+        console.log('submit');
         var ts_list = [];
         var pr_list = [];
         var count_ts = 0;
@@ -191,7 +192,38 @@ function content(step) {
             console.log(err);
         });
     }
-    if (step === 'complete') {}
+    if (step === 'complete') {
+        $('#sum-date-from').html('<strong>Date from: </strong>' + $('#date-from-input').val());
+        $('#sum-date-to').html('<strong>Date to: </strong>' + $('#date-to-input').val());
+        var count_platforms = 1;
+        var tbody = '';
+        $("#platforms option:selected").each(function () {
+            var str = $(this).text();
+            var platforms_params='';
+            if (str.startsWith("T")) {
+                var prev_param='';
+                $('#' + str + ' option:selected').each(function () {
+                    var param_pres = $(this).val().split('^');
+                    if(prev_param==param_pres[0]){
+                        platforms_params = platforms_params + param_pres[1] + ', ';
+                    }
+                    else{
+                        platforms_params = platforms_params + '<br>' + $(this).html() + ',';
+                    }
+                    prev_param=param_pres[0];
+                });
+                console.log(platforms_params);
+            }
+            else{
+                $('#' + str + ' option:selected').each(function () {
+                    platforms_params = platforms_params + $(this).html() + ',<br>';
+                });
+            }
+            tbody=tbody + '<tr> <th scope="row">'+ count_platforms +'</th><td>'+ str +'</td><td>'+ platforms_params +'</td></tr>'
+            count_platforms = count_platforms + 1;
+        });
+        $("#sum-table tbody").html(tbody);
+    }
     /*if(step==='submit'){
 		console.log(ts_list);
 		console.log(pr_list);
