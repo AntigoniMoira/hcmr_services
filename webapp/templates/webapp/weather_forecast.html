@@ -1,0 +1,63 @@
+{% extends "webapp/layout.html" %}
+
+
+{% block content %}
+<div class="container">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>{{title}}</h4>
+        </div>
+        <div class="panel-body">
+            <div id="region" hidden>{{region}}</div>
+            <div id="model-date" hidden>{{modeldate}}</div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="type-picker">Select Parameter:</label>
+                        <select class="form-control" id="type-picker">
+                            {% for param in params %}
+                            <option value="{{ param.value }}">{{ param.html }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="date-picker">Select Date(Local Time: UTC+3):</label>
+                        <select class="form-control" id="date-picker">
+                            {% for date in dates %}
+                            <option value="{{ date.value }}">{{ date.html }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div><!-- /.col-lg-4 -->
+            </div><!-- dropdowns' row end -->
+
+            <div class="row">
+                <!--<div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary">Previous</button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary">Play</button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" id="next-image">Next</button>
+                    </div>
+                </div>-->
+                <div class="tcenter">
+                    <a class="btn btn-default" id="prev-image"><i class="glyphicon glyphicon-backward"></i></a>
+                    <a class="btn btn-default" id="gif-play"><i class="glyphicon glyphicon-play"></i></a>
+                    <a class="btn btn-default" id="gif-stop"><i class="glyphicon glyphicon-stop"></i></a>
+                    <a class="btn btn-default" id="next-image"><i class="glyphicon glyphicon-forward"></i></a>
+                </div> <!-- /.tcenter -->
+            </div>
+            <div class="row">
+                <img id="weather-map" src="" class="center">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

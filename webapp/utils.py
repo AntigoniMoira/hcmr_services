@@ -74,3 +74,61 @@ def cURL_DELETE_request(token, url, data):
     }
     response = requests.delete(url, headers=headers, data=data) 
     return response
+
+def get_tilte(product, region):
+    if product == 'weather':
+        if region == 'gr':
+            return 'Weather Forecast for Greece'
+        elif region == 'eur':
+            return 'Weather Forecast for Europe'
+        else: #bsea
+            return 'Weather Forecast for Black Sea'
+    elif product == 'sea-state':
+        if region == 'aeg':
+            return 'Sea State Forecast for Aegean'
+        elif region == 'med':
+            return 'Sea State Forecast for Mediterranean'
+        else: #bsea
+            return 'Sea State Forecast for Black Sea'
+    elif product == 'sailing':
+        if region == 'naeg':
+            return 'Sailing (Wind and Sea State) Forecast for North Aegean'
+        elif region == 'saeg':
+            return 'Sailing (Wind and Sea State) Forecast for South Aegean'
+        elif region == 'cycl':
+            return 'Sailing (Wind and Sea State) Forecast for Cyclades'
+        elif region == 'ion':
+            return 'Sailing (Wind and Sea State) Forecast for Ionian'
+        else: #dod
+            return 'Sailing (Wind and Sea State) Forecast for Dodecanesse'
+    elif product == 'sea-level':
+        return 'Sea Level Forecast'
+    elif product == 'ocean':
+        if region == 'aeg':
+            return 'Ocean Forecast for Aegean'
+        else: #med
+            return 'Ocean Forecast for Mediterranean'
+    else: #ecosystem
+        return 'Ecosystem Forecast for Mediterranean'
+        
+
+def get_params(product, region):
+    if product == 'weather':
+        if region == 'gr' or region == 'bsea':
+            params = [{'value' :'meteo^windb', 'html': 'Surface Wind (10m)'},{'value' : 'meteo^rain', 'html' : 'Rainfall (mm/3h)'}, {'value' : 'meteo^snow', 'html' : 'Snowfall (mm/3h)'},
+            {'value' : 'meteo^cloud', 'html' : 'Cloudiness'}, {'value' : 'meteo^tem', 'html' : 'Air Temperature (2m)'}, {'value' : 'meteo^msl', 'html' : 'Atmospheric Pressure'}]
+        elif region =='eur':
+            params = [{'value' :'meteo^windb', 'html': 'Surface Wind (10m)'},{'value' : 'meteo^rain', 'html' : 'Rainfall (mm/3h)'}, {'value' : 'meteo^snow', 'html' : 'Snowfall (mm/3h)'},
+            {'value' : 'meteo^cloud', 'html' : 'Cloudiness'}, {'value' : 'meteo^tem', 'html' : 'Air Temperature (2m)'}, {'value' : 'meteo^dust', 'html' : 'Dust Load'}, {'value' : 'meteo^msl', 'html' : 'Atmospheric Pressure'}]
+    elif product == 'sea-state':
+         params = [{'value' : 'waves^wht', 'html' : 'Wave Height & Direction'}]
+    elif product == 'sailing':
+            params =[{'value' :'meteo^windb', 'html': 'Surface Wind (10m)'}, {'value' : 'waves^wht', 'html' : 'Wave Height & Direction'}]
+    elif product == 'sea-level':
+        params =[{'value' :'surge^etotal', 'html': 'Total Elevation'}, {'value' : 'surge^tide', 'html' : 'Tidal Elevation'}, {'value' : 'surge^surge', 'html' : 'Surge Elevation'}]
+    elif product == 'ocean':
+        params =[{'value' :'ocean^temp', 'html': 'Sea Surface Temperature'}, {'value' : 'ocean^sal', 'html' : 'Sea Surface Salinity'}, {'value' : 'ocean^vel', 'html' : 'Surface (5m) Circulation'}, {'value' : 'ocean^sse', 'html' : 'Free Surface Elevation'}]
+    else: #ecosystem
+        return 'Ecosystem Forecast for Mediterranean'
+    return params
+
