@@ -2,6 +2,7 @@
 Views for webapp.
 """
 import urllib
+import urllib.request
 import time
 import json
 from django.shortcuts import render, HttpResponseRedirect
@@ -14,9 +15,12 @@ from .utils import (
     cURL_POST_request,
     cURL_PUT_request,
     cURL_DELETE_request,
+    get_tilte,
+    get_params,
 )
 
 from django.conf import settings
+from datetime import datetime
 
 
 def home(request):
@@ -52,6 +56,57 @@ def gliders(request):
         return response
 
 
+def weather_forecast(request):
+    """
+    Return gliders.html page.
+    """
+    product = request.GET.get('product_id', None)
+    region = request.GET.get('area_id', None)
+
+    if product == 'weather':
+        file_path = 'meteo/fordates.METEO'
+    elif product == 'sea-state':
+        file_path = 'waves/fordates.WW3'
+    elif product == 'sailing':
+        file_path = 'waves/fordates.WW3'
+    elif product == 'sea-level':
+        file_path = 'surge/fordates.SL'
+    elif product == 'ocean':
+        file_path = 'ocean/fordates.PAEG'
+    else: #ecosystem
+        file_path = 'ecology/fordates.ERSEM_POM'
+
+
+    if product == 'ecosystem' :
+        with urllib.request.urlopen("http://poseidon.hcmr.gr/images/"+file_path) as url:
+            s = url.read().decode().splitlines()
+            dates = []
+            now = datetime.utcnow()
+            for line in s:
+                value = line
+                compdate = datetime(
+                    int('20'+line[6:8]), int(line[3:5]), int(line[0:2]), int(line[14:16]))
+                if compdate >= now:
+                    dates.append({'html': compdate.strftime(
+                        "%A") + ', ' + line, 'value': value})
+    else:
+        with urllib.request.urlopen("http://poseidon.hcmr.gr/images/"+file_path) as url:
+            s = url.read().decode().splitlines()
+            dates = []
+            now = datetime.utcnow()
+            modeldate = '/20'+s[0][6:8]+'/'+s[0][3:5]+'/'+s[0][0:2]+'/'
+            for line in s:
+                value = line[6:8]+line[3:5]+line[0:2]+line[14:16]
+                compdate = datetime(
+                    int('20'+line[6:8]), int(line[3:5]), int(line[0:2]), int(line[14:16]))
+                if compdate >= now:
+                    dates.append({'html': compdate.strftime(
+                        "%A") + ', ' + line, 'value': value})
+    title = get_tilte(product, region)
+    params = get_params(product, region)
+    return render(request, 'webapp/weather_forecast.html', {'dates': dates, 'region': region, 'modeldate': modeldate, 'title': title, 'params': params})
+
+
 def error(request):
     """
     Return error.html page.
@@ -68,8 +123,10 @@ def access_token(request):
     Exchange code with access and refresh token.
     """
     code = request.GET.get('code')
-    state=request.GET.get('state', None)
+    state = request.GET.get('state', None)
+    print(code)
     curl_res = cURL_AT_request(code)
+    print(curl_res.text)
     request.session.set_expiry(60 * 60 * 24 * 7)
     request.session['access_token'] = json.loads(curl_res.text)['access_token']
     request.session['refresh_token'] = json.loads(curl_res.text)[
@@ -85,7 +142,7 @@ def access_token(request):
     token = request.session['access_token']
     curl_res = cURL_GET_request(token, url)
     request.session['email'] = json.loads(curl_res.text)['email']
-    return HttpResponseRedirect('../'+ state +'/')
+    return HttpResponseRedirect('../' + state + '/')
 
 
 def logout(request):
@@ -305,7 +362,7 @@ def online_data(request, language):
 
     data = json.loads(serialized_data.decode('utf-8'))
     results = data['results']
-    #date = dateutil.parser.parse(results[0]['dt'])
+    # date = dateutil.parser.parse(results[0]['dt'])
     date = time.strptime(results[0]['dt'], '%Y-%m-%dT%H:%M:%SZ')
     finaldate = time.strftime('%d.%m.%Y %H:%M', date)
     for row in results:
@@ -339,7 +396,7 @@ def poseidon_db(request):
     if request.session._session:
         return render(request, 'webapp/poseidon_db.html')
     else:
-        url ='http://localhost:8000/o/authorize/?response_type=code&state=poseidon_db&client_id=NwVaE1ddbUDyzlCf0MvdVy7fRbwGCskjXtMPJy0z&URI=/webapp/access_token/'
+        url = 'http://localhost:8000/o/authorize/?response_type=code&state=poseidon_db&client_id=NwVaE1ddbUDyzlCf0MvdVy7fRbwGCskjXtMPJy0z&URI=/webapp/access_token/'
         response = HttpResponseRedirect(url)
         return response
 
@@ -387,12 +444,10 @@ def measurements_between(request):
 
 
 def create_netcdf(request):
-    print(request)
-    # data=list(request.POST.keys())
-    # data=dict(request.POST.lists())
-    data = json.loads(request.POST.get('datas', None))
-    #print('here:', list(data.keys()))
-    print('data', data['dt_from'])
-    # print(data['platforms']['TS'][0])
-    print(data['user_email'])
-    return JsonResponse({'success': data})
+    from subprocess import call
+    data = json.loads(request.POST.get('data', None))
+    req1 = json.dumps(data)
+    print(req1)
+    #response = call(["ssh", "user@10.6.1.16", "/home/user/scitools/bin/python ", "/home/user/scripts/api_script_tests/exe/create_poseidon_netcdf_htmlMail.py '%s'"%(req1)])
+    # return JsonResponse({'success': response})
+    return JsonResponse({'success': True})
