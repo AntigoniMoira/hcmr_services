@@ -115,7 +115,10 @@ function content(step) {
                 enableCaseInsensitiveFiltering: true,
                 includeSelectAllOption: true,
                 maxHeight: 200,
-                buttonWidth: '100%'
+                buttonWidth: '100%',
+                buttonText: function(options, select) {
+                    return select.attr('id') +' ('+ options.length +')';
+                },
             });
 
             ajax.get(HomeRoutes.home.measurements_between, params_data).then((return_data) => {
@@ -139,6 +142,47 @@ function content(step) {
             });
         });
     }
+
+    if (step === 'complete') {
+        $('#inform-user').hide();
+        $('#sum-date-from').html('<strong>Date from: </strong>' + $('#date-from-input').val());
+        $('#sum-date-to').html('<strong>Date to: </strong>' + $('#date-to-input').val());
+        var count_platforms = 1;
+        var tbody = '';
+        $("#platforms option:selected").each(function () {
+            var str = $(this).text();
+            //console.log(str);
+            var platforms_params='';
+            //var abbr='';
+            //var depths='';
+            if (str.startsWith("T")) {
+                var prev_param='';
+                $('#' + str + ' option:selected').each(function () {
+                    var param_pres = $(this).val().split('^');
+                    //console.log('param_pres[0]:' + param_pres[0]);
+                    //console.log('param_pres[1]:' + param_pres[1]);
+                    if(prev_param==param_pres[0]){
+                        platforms_params = platforms_params + param_pres[1] + ', ';
+                    }
+                    else{
+                        //tbody=tbody + '<tr> <th scope="row">'+ count_platforms +'</th><td>'+ str +'</td><td>'+ platforms_params +'</td><td>'+ abbr +'</td><td>'+ depths +'</td></tr>'
+                        //depths = depths + '<br>' + param_pres[1];
+                        platforms_params = platforms_params + '<br>' + $(this).html() + ',';
+                    }
+                    prev_param=param_pres[0];
+                });
+            }
+            else{
+                $('#' + str + ' option:selected').each(function () {
+                    platforms_params = platforms_params + $(this).html() + ',<br>';
+                });
+            }
+            tbody=tbody + '<tr> <th scope="row">'+ count_platforms +'</th><td>'+ str +'</td><td>'+ platforms_params +'</td></tr>'
+            count_platforms = count_platforms + 1;
+        });
+        $("#sum-table tbody").html(tbody);
+    }
+
     //Final step. Data collection and send to backend
     if (step === 'submit') {
         console.log('submit');
@@ -174,7 +218,7 @@ function content(step) {
             }
         });
         var submit_data = {
-            datas: JSON.stringify({
+            data: JSON.stringify({
                 user_email: $('#email').val(),
                 dt_of_request: Date.now(),
                 dt_from: $('#date-from-input').val(),
@@ -186,67 +230,21 @@ function content(step) {
             })
         }
         ajax.post(HomeRoutes.home.create_netcdf, submit_data).then((return_data) => {
-            console.log(return_data);
+            if (return_data.success==true){
+                document.getElementById("overlay").style.display = "block";
+            }
         }).catch((error) => {
             const err = new AjaxError(error);
             console.log(err);
         });
     }
-    if (step === 'complete') {
-        $('#sum-date-from').html('<strong>Date from: </strong>' + $('#date-from-input').val());
-        $('#sum-date-to').html('<strong>Date to: </strong>' + $('#date-to-input').val());
-        var count_platforms = 1;
-        var tbody = '';
-        $("#platforms option:selected").each(function () {
-            var str = $(this).text();
-            var platforms_params='';
-            if (str.startsWith("T")) {
-                var prev_param='';
-                $('#' + str + ' option:selected').each(function () {
-                    var param_pres = $(this).val().split('^');
-                    if(prev_param==param_pres[0]){
-                        platforms_params = platforms_params + param_pres[1] + ', ';
-                    }
-                    else{
-                        platforms_params = platforms_params + '<br>' + $(this).html() + ',';
-                    }
-                    prev_param=param_pres[0];
-                });
-                console.log(platforms_params);
-            }
-            else{
-                $('#' + str + ' option:selected').each(function () {
-                    platforms_params = platforms_params + $(this).html() + ',<br>';
-                });
-            }
-            tbody=tbody + '<tr> <th scope="row">'+ count_platforms +'</th><td>'+ str +'</td><td>'+ platforms_params +'</td></tr>'
-            count_platforms = count_platforms + 1;
-        });
-        $("#sum-table tbody").html(tbody);
-    }
-    /*if(step==='submit'){
-		console.log(ts_list);
-		console.log(pr_list);
-        var submit_data={
-            datas : JSON.stringify({
-                user_email: $('#email').val(),
-                dt_of_request: Date.now(),
-                dt_from: $('#date-from-input').val(),
-                dt_to: $('#date-to-input').val(),
-                platforms: { 
-                    'TS': ts_list,
-                    'PR': pr_list
-                }
-            })
-        }
-        ajax.post(HomeRoutes.home.create_netcdf, submit_data).then((return_data) => {
-            console.log(return_data);
-        }).catch((error) => {
-            const err = new AjaxError(error);
-            console.log(err);
-        });
-    }*/
+
 }
+
+$('#overlay').click(function (e) {
+    document.getElementById("overlay").style.display = "none";
+    location.reload();
+  });
 
 function clear_content(step) {
 

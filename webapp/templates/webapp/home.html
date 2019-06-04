@@ -11,7 +11,8 @@
     </div>
 </div>
 <div class="poseidon-logo">
-    <center><img class="mb-4" src="{% static 'webapp/images/headerphoto.gif' %}" alt="" width="920" height="120"></center>
+    <center><img class="mb-4" src="{% static 'webapp/images/headerphoto.gif' %}" alt="" width="920" height="120">
+    </center>
 </div>
 <!-- Page Content -->
 <div class="container index-container">
@@ -67,12 +68,105 @@
                         by the buoy network in the Aegean Sea and Ionian Sea. The data are available either as time
                         series graphs or as text based format for the latest transmission.</p>
                     <br />
-                    <a href="http://localhost:9000/webapp/online_data_poseidon/en" class="btn btn-block btn-primary">Try table</a>
+                    <a href="http://localhost:9000/webapp/online_data_poseidon/en" class="btn btn-block btn-primary">Try
+                        table</a>
                     <a href="http://poseidonsystem.gr/map" class="btn btn-block btn-primary">Try map</a>
                 </div>
             </div>
         </div>
+        <div class="col-md-4 text-center">
+            <div class="box">
+                <div class="box-content">
+                    <h1 class="tag-title">Weather Forecast</h1>
+                    <hr />
+                    <p>Kairos kairos kairos</p>
+                    <br />
+                    <div class="btn-group-vertical">
+                        <div class="btn-group">
+                            <a class="btn btn-primary dropdown-toggle weather-btn" data-toggle="dropdown" href="#">
+                                Weather Forecast
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- dropdown menu links -->
+                                <li><a
+                                        href="http://localhost:9000/webapp/weather_forecast/en/?product_id=weather&area_id=gr">Greece</a>
+                                </li>
+                                <li><a
+                                        href="http://localhost:9000/webapp/weather_forecast/en/?product_id=weather&area_id=eur">Europe</a>
+                                </li>
+                                <li><a
+                                        href="http://localhost:9000/webapp/weather_forecast/en/?product_id=weather&area_id=bsea">Black
+                                        Sea</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn btn-md btn-primary dropdown-toggle weather-btn" data-toggle="dropdown" href="#">
+                                Sea State Forecast
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- dropdown menu links -->
+                                <li><a
+                                        href="http://localhost:9000/webapp/weather_forecast/en/?product_id=sea-state&area_id=aeg">Aegean</a>
+                                </li>
+                                <li><a
+                                        href="http://localhost:9000/webapp/weather_forecast/en/?product_id=sea-state&area_id=med">Mediterranean</a>
+                                </li>
+                                <li><a
+                                        href="http://localhost:9000/webapp/weather_forecast/en/?product_id=sea-state&area_id=bsea">Black
+                                        Sea</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn btn-block btn-primary dropdown-toggle weather-btn" data-toggle="dropdown" href="#">
+                                Sailing Forecast
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- dropdown menu links -->
+                                <li><a
+                                        href="http://localhost:9000/webapp/weather_forecast/en/?product_id=sailing&area_id=naeg">North
+                                        Aegean</a></li>
+                                <li><a
+                                        href="http://localhost:9000/webapp/weather_forecast/en/?product_id=sailing&area_id=saeg">South
+                                        Aegean</a></li>
+                                <li><a
+                                        href="http://localhost:9000/webapp/weather_forecast/en/?product_id=sailing&area_id=cycl">Cyclades</a>
+                                </li>
+                                <li><a
+                                        href="http://localhost:9000/webapp/weather_forecast/en/?product_id=sailing&area_id=ion">Ionian</a>
+                                </li>
+                                <li><a
+                                        href="http://localhost:9000/webapp/weather_forecast/en/?product_id=sailing&area_id=dod">Dodecanesse</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="http://localhost:9000/webapp/weather_forecast/en/?product_id=sea-level&area_id=med"
+                            class="btn btn-block btn-primary weather-btn">Sea Level Forecast</a>
+                        <div class="btn-group">
+                            <a class="btn btn-primary dropdown-toggle weather-btn" data-toggle="dropdown" href="#">
+                                Ocean Forecast
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- dropdown menu links -->
+                                <li><a
+                                        href="http://localhost:9000/webapp/weather_forecast/en/?product_id=ocean&area_id=aeg">Aegean</a>
+                                </li>
+                                <li><a
+                                        href="http://localhost:9000/webapp/weather_forecast/en/?product_id=ocean&area_id=med">Mediterranean</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="http://localhost:9000/webapp/weather_forecast/en/?product_id=ecosystem&area_id=med"
+                            class="btn btn-block btn-primary weather-btn">Ecosystem Forecast</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 </div>
 
 </div>
