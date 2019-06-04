@@ -20,7 +20,7 @@ from .utils import (
 )
 
 from django.conf import settings
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 def home(request):
@@ -55,18 +55,21 @@ def gliders(request):
         response = HttpResponseRedirect('/webapp/home/')
         return response
 
-
-def weather_forecast(request):
+def weather_forecast(request, language):
     """
     Return gliders.html page.
     """
     product = request.GET.get('product_id', None)
     region = request.GET.get('area_id', None)
+    days_GR = ["Κυριακή", "Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο"]
 
     if product == 'weather':
         file_path = 'meteo/fordates.METEO'
     elif product == 'sea-state':
-        file_path = 'waves/fordates.WW3'
+        if region == 'aeg':
+            file_path = 'waves/fordates.WAM'
+        else:
+            file_path = 'waves/fordates.WW3'
     elif product == 'sailing':
         file_path = 'waves/fordates.WW3'
     elif product == 'sea-level':
@@ -76,19 +79,16 @@ def weather_forecast(request):
     else: #ecosystem
         file_path = 'ecology/fordates.ERSEM_POM'
 
-
     if product == 'ecosystem' :
         with urllib.request.urlopen("http://poseidon.hcmr.gr/images/"+file_path) as url:
             s = url.read().decode().splitlines()
+            filedate = datetime(int('20'+s[0][6:8]), int(s[0][3:5]), int(s[0][0:2]))
+            yesterday = filedate - timedelta(days=1)
+            modeldate = yesterday.strftime('/%Y/%m/%d/')
             dates = []
-            now = datetime.utcnow()
             for line in s:
-                value = line
-                compdate = datetime(
-                    int('20'+line[6:8]), int(line[3:5]), int(line[0:2]), int(line[14:16]))
-                if compdate >= now:
-                    dates.append({'html': compdate.strftime(
-                        "%A") + ', ' + line, 'value': value})
+                value = line[6:8]+line[3:5]+line[0:2]
+                dates.append({'html': line, 'value': value})
     else:
         with urllib.request.urlopen("http://poseidon.hcmr.gr/images/"+file_path) as url:
             s = url.read().decode().splitlines()
@@ -100,11 +100,15 @@ def weather_forecast(request):
                 compdate = datetime(
                     int('20'+line[6:8]), int(line[3:5]), int(line[0:2]), int(line[14:16]))
                 if compdate >= now:
-                    dates.append({'html': compdate.strftime(
-                        "%A") + ', ' + line, 'value': value})
-    title = get_tilte(product, region)
-    params = get_params(product, region)
-    return render(request, 'webapp/weather_forecast.html', {'dates': dates, 'region': region, 'modeldate': modeldate, 'title': title, 'params': params})
+                    if language == 'gr':
+                        dates.append({'html': compdate.strftime(
+                            "{%w}").format(*days_GR) + ', ' + line.replace("Hour", "Ώρα"), 'value': value})
+                    else:
+                        dates.append({'html': compdate.strftime(
+                            "%A") + ', ' + line, 'value': value})
+    title = get_tilte(product, region, language)
+    params = get_params(product, region, language)
+    return render(request, 'webapp/weather_forecast.html', {'dates': dates, 'region': region, 'modeldate': modeldate, 'title': title, 'params': params, 'lang': language})
 
 
 def error(request):
