@@ -1,16 +1,17 @@
 import Ajax from './Ajax.js';
 import Utils from './Utils.js';
-import HomeRoutes from './routes.js';
-import AjaxError from './ajax-errors.js';
+
 const ajax = new Ajax($("[name=csrfmiddlewaretoken]").val());
 const utils = new Utils();
 
 const WeatherForecast = function (e) {
 
-    var base ="http://poseidon.hcmr.gr/images/"+$("#type-picker option:selected").val().split("^")[0]+$('#model-date').html()+$('#region').html();
+    if (typeof $("#type-picker option:selected").val() !== 'undefined') {
+        var base ="http://poseidon.hcmr.gr/images/"+$("#type-picker option:selected").val().split("^")[0]+$('#model-date').html()+$('#region').html();
+        $("#weather-map").attr('src', base +'/'+ $('#region').html() + $("#type-picker option:selected").val().split("^")[1] + $("#date-picker option:selected").val() + '.png');
+    }
     var intervalID=null;
     
-    $("#weather-map").attr('src', base +'/'+ $('#region').html() + $("#type-picker option:selected").val().split("^")[1] + $("#date-picker option:selected").val() + '.png');
     $("#next-image").click(function () {
         base ="http://poseidon.hcmr.gr/images/"+$("#type-picker option:selected").val().split("^")[0]+$('#model-date').html()+$('#region').html();
         $('#date-picker option:selected').prop('selected', false).next().prop('selected', true);
@@ -23,11 +24,13 @@ const WeatherForecast = function (e) {
         $("#weather-map").attr('src', base +'/'+ $('#region').html() + $("#type-picker option:selected").val().split("^")[1] + $("#date-picker option:selected").val() + '.png');
     });
 
-    $("#gif-play").click(function () {
+    $("#gif-play").click(function (e) {
+        $("#gif-play").attr('disabled','disabled');
         intervalID = window.setInterval(myCallback, 1500);
     });
 
-    $("#gif-stop").click(function () {
+    $("#gif-stop").click(function (e) {
+        $("#gif-play").removeAttr('disabled');
         clearInterval(intervalID);
     });
 

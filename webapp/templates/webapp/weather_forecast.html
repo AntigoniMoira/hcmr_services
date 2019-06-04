@@ -14,7 +14,11 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
+                    {% if lang == 'gr' %}
+                        <label for="type-picker">Επιλέξτε Παράμετρο:</label>
+                    {% else %}
                         <label for="type-picker">Select Parameter:</label>
+                    {% endif %}
                         <select class="form-control" id="type-picker">
                             {% for param in params %}
                             <option value="{{ param.value }}">{{ param.html }}</option>
@@ -25,7 +29,11 @@
 
                 <div class="col-lg-6">
                     <div class="form-group">
+                    {% if lang == 'gr' %}
+                        <label for="date-picker">	Επιλέξτε Ηεμρομηνία(Τοπική Ώρα: UTC+3):</label>
+                    {% else %}
                         <label for="date-picker">Select Date(Local Time: UTC+3):</label>
+                    {% endif %}
                         <select class="form-control" id="date-picker">
                             {% for date in dates %}
                             <option value="{{ date.value }}">{{ date.html }}</option>
@@ -36,17 +44,6 @@
             </div><!-- dropdowns' row end -->
 
             <div class="row">
-                <!--<div class="btn-group btn-group-justified">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary">Previous</button>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary">Play</button>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary" id="next-image">Next</button>
-                    </div>
-                </div>-->
                 <div class="tcenter">
                     <a class="btn btn-default" id="prev-image"><i class="glyphicon glyphicon-backward"></i></a>
                     <a class="btn btn-default" id="gif-play"><i class="glyphicon glyphicon-play"></i></a>

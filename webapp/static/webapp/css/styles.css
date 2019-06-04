@@ -67,6 +67,10 @@ li.active {
   text-align: center;
 }
 
+.weather-btn{
+  margin-bottom: 10px !important;
+}
+
 /****** home.html END ******/
 
 /****** online_data_map.html START ******/
