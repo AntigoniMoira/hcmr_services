@@ -185,7 +185,6 @@ function content(step) {
 
     //Final step. Data collection and send to backend
     if (step === 'submit') {
-        console.log('submit');
         var ts_list = [];
         var pr_list = [];
         var count_ts = 0;
@@ -229,14 +228,26 @@ function content(step) {
                 }
             })
         }
-        ajax.post(HomeRoutes.home.create_netcdf, submit_data).then((return_data) => {
+        /*ajax.post(HomeRoutes.home.create_netcdf, submit_data).then((return_data) => {
             if (return_data.success==true){
                 document.getElementById("overlay").style.display = "block";
             }
         }).catch((error) => {
             const err = new AjaxError(error);
             console.log(err);
-        });
+        });*/
+        var request = $.ajax({
+            url: HomeRoutes.home.create_netcdf,
+            type: 'POST',
+            dataType: 'json',
+            data: submit_data,
+            contentType: 'application/json',
+            beforeSend: (xhr) => {
+                      xhr.setRequestHeader('X-CSRFToken', ajax._getCookie('csrftoken'));
+                      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                  }
+          });
+          document.getElementById("overlay").style.display = "block";
     }
 
 }

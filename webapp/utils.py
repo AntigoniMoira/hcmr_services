@@ -5,7 +5,6 @@ import json
 import requests
 from django.conf import settings
 
-
 def update_access_token(request):
     """
     Function to update access_token with refresh token.
