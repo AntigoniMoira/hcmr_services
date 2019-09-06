@@ -11,14 +11,15 @@
         <div class="panel-body">
             <div id="region" hidden>{{region}}</div>
             <div id="model-date" hidden>{{modeldate}}</div>
+            <div id="language" hidden>{{lang}}</div>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
-                    {% if lang == 'gr' %}
+                        {% if lang == 'gr' %}
                         <label for="type-picker">Επιλέξτε Παράμετρο:</label>
-                    {% else %}
+                        {% else %}
                         <label for="type-picker">Select Parameter:</label>
-                    {% endif %}
+                        {% endif %}
                         <select class="form-control" id="type-picker">
                             {% for param in params %}
                             <option value="{{ param.value }}">{{ param.html }}</option>
@@ -29,11 +30,11 @@
 
                 <div class="col-lg-6">
                     <div class="form-group">
-                    {% if lang == 'gr' %}
-                        <label for="date-picker">	Επιλέξτε Ηεμρομηνία(Τοπική Ώρα: UTC+3):</label>
-                    {% else %}
+                        {% if lang == 'gr' %}
+                        <label for="date-picker"> Επιλέξτε Ηεμρομηνία(Τοπική Ώρα: UTC+3):</label>
+                        {% else %}
                         <label for="date-picker">Select Date(Local Time: UTC+3):</label>
-                    {% endif %}
+                        {% endif %}
                         <select class="form-control" id="date-picker">
                             {% for date in dates %}
                             <option value="{{ date.value }}">{{ date.html }}</option>
@@ -53,6 +54,11 @@
             </div>
             <div class="row">
                 <img id="weather-map" src="" class="center">
+            </div>
+            <div class="row" id="download-zip">
+                <div class="tcenter">
+                    {{ download_div|safe }}
+                </div>
             </div>
         </div>
     </div>
