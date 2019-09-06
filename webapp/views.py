@@ -71,7 +71,7 @@ def weather_forecast(request, language):
         else:
             file_path = 'waves/fordates.WW3'
     elif product == 'sailing':
-        file_path = 'waves/fordates.WΑΜ'
+        file_path = 'waves/fordates.WAM'
     elif product == 'sea-level':
         file_path = 'surge/fordates.SL'
     elif product == 'ocean':
