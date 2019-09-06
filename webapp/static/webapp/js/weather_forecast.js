@@ -1,7 +1,5 @@
-import Ajax from './Ajax.js';
 import Utils from './Utils.js';
 
-const ajax = new Ajax($("[name=csrfmiddlewaretoken]").val());
 const utils = new Utils();
 
 const WeatherForecast = function (e) {
@@ -40,8 +38,35 @@ const WeatherForecast = function (e) {
     });
 
     $("#type-picker").change(function () {
-        var base ="http://poseidon.hcmr.gr/images/"+$("#type-picker option:selected").val().split("^")[0]+$('#model-date').html()+$('#region').html();
+        var base ="http://poseidon.hcmr.gr/images/"+this.value.split("^")[0]+$('#model-date').html()+$('#region').html();
         $("#weather-map").attr('src', base +'/'+ $('#region').html() + this.value.split("^")[1] + $("#date-picker option:selected").val() + '.png');
+        if(utils.getUrlParameter('product_id') == 'weather' && utils.getUrlParameter('area_id') == 'gr'){
+            if(this.value.split("^")[1] == 'windb'){
+                $("#download-zip").show();
+            }
+            else{
+                $("#download-zip").hide();
+            }
+        }
+        if(utils.getUrlParameter('product_id') == 'sailing'){
+            $("#sailing-download").prop('href', base + '/' + $('#region').html() +  this.value.split("^")[1] + '.zip');
+            if ($('#language').html() == 'gr'){ 
+                if(this.value.split("^")[1] == 'windb'){
+                    $("#sailing-download").html('Λήψη πρόγνωσης ανέμου');
+                }
+                else{
+                    $("#sailing-download").html('Λήψη πρόγνωσης κυματισμού');
+                }
+            }
+            else{
+                if(this.value.split("^")[1] == 'windb'){
+                    $("#sailing-download").html('Download surface wind forecast');
+                }
+                else{
+                    $("#sailing-download").html('Download sea state forecast');
+                }
+            }
+        }
     });
 
 }

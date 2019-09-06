@@ -62,7 +62,7 @@ def weather_forecast(request, language):
     product = request.GET.get('product_id', None)
     region = request.GET.get('area_id', None)
     days_GR = ["Κυριακή", "Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο"]
-
+    
     if product == 'weather':
         file_path = 'meteo/fordates.METEO'
     elif product == 'sea-state':
@@ -106,9 +106,42 @@ def weather_forecast(request, language):
                     else:
                         dates.append({'html': compdate.strftime(
                             "%A") + ', ' + line, 'value': value})
+    
+    download_div = ''
+
+    if product == 'weather':
+        if region == 'gr':
+            if language == 'gr':
+                download_div = '<a href="http://poseidon.hcmr.gr/images/meteo'+ modeldate + 'gr/grwindb.zip" download>Λήψη πρόγνωσης ανέμου</a>'
+            else:
+                download_div = '<a href="http://poseidon.hcmr.gr/images/meteo'+ modeldate + 'gr/grwindb.zip" download>Download surface wind forecast</a>'
+    elif product == 'sea-state':
+        if region == 'aeg':
+            if language == 'gr':
+                download_div = '<a href="http://poseidon.hcmr.gr/images/waves'+ modeldate + 'aeg/aegwht.zip" download>Λήψη πρόγνωσης κυματισμού</a>'
+            else:
+                download_div = '<a href="http://poseidon.hcmr.gr/images/waves'+ modeldate + 'aeg/aegwht.zip" download>Download sea state forecast</a>'
+    elif product == 'sailing':
+        if region == 'naeg':
+            download_div = '<a id="sailing-download" href="http://poseidon.hcmr.gr/images/meteo'+ modeldate + 'naeg/naegwindb.zip" download>'
+        elif region == 'saeg':
+            download_div = '<a id="sailing-download" href="http://poseidon.hcmr.gr/images/meteo'+ modeldate + 'saeg/saegwindb.zip" download>'
+        elif region == 'cycl':
+            download_div = '<a id="sailing-download" href="http://poseidon.hcmr.gr/images/meteo'+ modeldate + 'cycl/cyclwindb.zip" download>'
+        elif region == 'ion':
+            download_div = '<a id="sailing-download" href="http://poseidon.hcmr.gr/images/meteo'+ modeldate + 'ion/ionwindb.zip" download>'
+        else:
+            download_div = '<a id="sailing-download" href="http://poseidon.hcmr.gr/images/meteo'+ modeldate + 'dod/dodwindb.zip" download>'
+        if language == 'gr':
+            download_div = download_div +'Λήψη πρόγνωσης ανέμου</a>'
+        else:
+            download_div = download_div +'Download surface wind forecast</a>'
+    else: #ecosystem
+        download_div = ''
+
     title = get_tilte(product, region, language)
     params = get_params(product, region, language)
-    return render(request, 'webapp/weather_forecast.html', {'dates': dates, 'region': region, 'modeldate': modeldate, 'title': title, 'params': params, 'lang': language})
+    return render(request, 'webapp/weather_forecast.html', {'dates': dates, 'region': region, 'modeldate': modeldate, 'title': title, 'params': params, 'lang': language, 'download_div': download_div})
 
 
 def error(request):
