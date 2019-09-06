@@ -71,7 +71,7 @@ def weather_forecast(request, language):
         else:
             file_path = 'waves/fordates.WW3'
     elif product == 'sailing':
-        file_path = 'waves/fordates.WW3'
+        file_path = 'waves/fordates.WΑΜ'
     elif product == 'sea-level':
         file_path = 'surge/fordates.SL'
     elif product == 'ocean':
@@ -484,7 +484,5 @@ def create_netcdf(request):
     from subprocess import call
     data = json.loads(request.POST.get('data', None))
     req1 = json.dumps(data)
-    print(req1)
-    #response = call(["ssh", "user@10.6.1.16", "/home/user/scitools/bin/python ", "/home/user/scripts/api_script_tests/exe/create_poseidon_netcdf_htmlMail.py '%s'"%(req1)])
-    # return JsonResponse({'success': response})
+    response = call(["ssh", "user@10.6.1.16", "/home/user/scitools/bin/python ", "/home/user/scripts/api_script_tests/exe/create_poseidon_netcdf_htmlMail_v2.py '%s'"%(req1)])
     return JsonResponse({'success': True})
